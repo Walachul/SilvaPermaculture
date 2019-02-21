@@ -1,0 +1,56 @@
+/**** Main Font and Colors ****/
+@import url('https://fonts.googleapis.com/css?family=Mali');
+/*Primary color : #4B9B2F
+Secondary color : #E5530B*/
+/**** General Styling ****/
+body{
+    font-family: "Mali",cursive;
+}
+/**** Navbar Styling ****/
+
+.items{
+    color:#4B9B2F;
+    font-family: 'Josefin Sans';
+    font-size:20px;
+    transition: all .5s;
+}
+.items:hover{
+    color: #E5530B;
+    transform: translateY(5px)
+}
+
+/**** H1 Styling  ****/
+#heading{
+    color: #4B9B2F;
+    font-size: 36px;
+    font-family: 'Josefin Sans';
+}
+/**** Principles section ****/
+#acronym{
+    color: #E5530B;
+    font-family: 'Josefin Sans';
+    font-size:20px;
+    letter-spacing:2px
+}
+
+
+/**** H2 Styling ****/
+.h2principles{
+    color: #E5530B;
+    font-family: 'Josefin Sans';
+}
+
+/**** Background Image ****/
+.bkgimg{
+    /*background-image: url("../img/permaculture_garden.jpg");*/
+    background-repeat: no-repeat;
+    background-position: center; /* Center the image */
+    background-size: cover
+}
+/**** Plant Database Page ****/
+#docplant{
+    list-style-type: none;
+    margin: 0;
+    padding:0
+
+}

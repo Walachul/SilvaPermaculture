@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+    {% block content %}
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center" id="heading">Plants Database - Nature's Doctors</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="text-center">Here we can learn about plants and why we called them Nature's Doctors.<br/>
+                    They can help not only humans, but assist the whole environment. <br/>
+                    <ul class="text-left" id="docplant">
+                        <li>They can improve or rebuild soil life.</li>
+                        <li>They help and support other species through nutrients.</li>
+                        <li>They attract beneficial insects to our gardens.</li>
+                        <li>Some species of plants can act as natural pesticides.</li>
+                        <li>They are used to treat or heal various human symptoms.</li>
+                    </ul></p>
+            </div>
+        </div>
+        {% for post in posts %}
+         <h2 class="text-left">{{ post.Plant }}</h2>
+        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
+        <p class="text-left">{{ post.content }}</p>
+
+        {% endfor %}
+    {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
+     {% block content_right %}
+        <h3 class="text-center">This is the plant info page</h3>
+        <p class="text-center">LOREM    LOREM</p>
+     {% endblock content_right %}

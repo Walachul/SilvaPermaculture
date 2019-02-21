@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+    {% block content %}
+        <h1 class="text-center">Nature's Doctors</h1>
+        {% for post in posts %}
+         <h2 class="text-left">{{ post.Plant }}</h2>
+        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
+        <p class="text-left">{{ post.content }}</p>
+
+        {% endfor %}
+    {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
+     {% block content_right %}
+        <h3 class="text-center">This is the plant info page</h3>
+        <p class="text-center">LOREM    LOREM</p>
+     {% endblock content_right %}
