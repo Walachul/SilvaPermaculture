@@ -6,30 +6,30 @@ app = Flask(__name__)  #app variable is an instance of the Flask class."__name__
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///plants.db'
 db = SQLAlchemy(app)
 
-plants = [
-    {
-      'author':'Sami',
-      'common_name': 'Lalea',
-       'botanical_name': 'Lalea Latina',
-        'short_description': 'This is a beautiful smelly plant',
-        'date_added': 'April 20, 2020'
+Plants={
+      'author': 'Alexandra Morarescu',
+      'commonName': 'Trandafir',
+      'botanicalName': 'Rosa Regalis',
+      'shortDescription': 'This is a beautiful plant.',
+      'dateAdded': 'April 20, 2021'
     }
-]
-medicinal_use = [{
+
+medicinal_use = {
     'usage':'Stress relief'
 }
-]
-Dynamic_Nutrient_Accumulated=[{
-    'N':'True',
-    'P':'True',
-    'K':'False',
-    'Ca':'True',
-    'Mg':'True',
-}]
-Nitrogen_Fixers_Nursing=[{
-    'nursery':'True'
 
-}]
+Dynamic_Nutrient_Accumulated={
+    'N': 'True',
+    'P': 'True',
+    'K': 'False',
+    'Ca': 'True',
+    'Mg': 'True'
+}
+Nitrogen_Fixers_Nursing={
+    'nursery': 'True',
+    'check_nitrogen': 'False',
+    'comment': 'This plant works best in full sunlight and requires lot of water.'
+}
 #Routes
 @app.route("/")
 @app.route("/index")   #@app is a decorator that add extra functionality to existing functions. In this case it will handle all the complicated backendstuff and allows us to write a function to view on browser.
@@ -37,7 +37,7 @@ def index():
     return render_template('index.html')
 @app.route("/plants")
 def plants():
-    return render_template('plants.html', title= 'Plants', plants=plants, medicinal_use=medicinal_use, Dynamic_Nutrient_Accumulated=Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing=Nitrogen_Fixers_Nursing)
+    return render_template('plants.html', title= 'Plants', plant=Plants, meds=medicinal_use, dna=Dynamic_Nutrient_Accumulated, nfn=Nitrogen_Fixers_Nursing)
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')
@@ -53,7 +53,7 @@ def register():
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')
-
+"""
 #Creating Models for the database
 
 #Plants Table#Users
@@ -120,6 +120,6 @@ class Nitrogen_Fixers_Nursing(db.Model):
 
     def __repr__(self):
         return f"Nitrogen_Fixers_Nursing('{self.check_nitrogen}', '{self.nursery}', '{self.plant_id}')"
-
+"""
 if __name__ == '__main__':  #The condition is true if we run the script directly.
     app.run(debug=True)

@@ -5,8 +5,8 @@
                 <h1 class="text-center" id="heading">Plants Database - Nature's Doctors</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
+        <div class="row my-3">
+            <div class="col-12 mb-2">
                 <p class="text-center">Here we can learn about plants and why we called them Nature's Doctors.<br/>
                     They can help not only humans, but assist the whole environment. <br/>
                     Search for plants by scientific name, common name or by nutrients. </p>
@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-3 ">
-                <h2>Search for a plant</h2>
+                <h3 class="my-2 text-center">Search for a plant</h3>
                 <form class="form-inline my-2 my-lg-0">
                   <input class="form-control mr-sm-2" type="search" placeholder="Enter a common name" aria-label="Search">
                   <input class="form-control mr-sm-2" type="search" placeholder="Enter a botanical name" aria-label="Search">
@@ -26,37 +26,27 @@
                 </form>
             </div>
             <div class="col-12 col-lg-9">
-                <h2 class="text-center">Plants Database</h2>
-                 
-                    <h3 class="text-center"> <img src="{{ url_for('static', filename='img/default_plant_pic.jpg') }}" alt="Plant image"  />Common name: {{ plants.common_name }}</h3>
-                    <h3 class="text-center">Scientific name: {{ plants.botanical_name }}</h3>
-                    <p class="text-center">Plant added by {{ plants.author }} on {{ plants.date_added }}</p>
-                    <p class="text-center">A brief description{{ plants.short_description }}</p>
-                    <p class="text-center">Medicinal use: {{ medicinal_use.usage }}</p>
-                <!-- IF DNA exists, print it here-->
-                    <p class="text-center">Nutrients that the plant can draw from deep in the soild: </p>
+                <h2 class="my-2 text-center heading">Database</h2>
+
+                <h4 class="text-left">Common name: <span class="titles">{{ plant.commonName }}</span></h4>
+                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanicalName }} </span></h4>
+                    <p class="text-left">Plant added by {{ plant.author }} on {{ plant.dateAdded }} </p>
+                <p class="text-left">A brief description: <em>{{ plant.shortDescription }}</em> </p>
+
+                <p class="text-left">Medicinal use: <em>{{ meds.usage }}</em></p>
+                     <!-- IF DNA exists, print it here-->
+                    <p class="text-left">Nutrients that the plant can draw from deep in the soil: </p>
+
+                    <p class="text-left">N={{ dna.N }} | P={{ dna.P }} | K={{ dna.K }} | Ca={{ dna.Ca }} | S={{ dna.S }}<br/>
+                                           Mg={{ dna.Mg }} | Mn={{ dna.Mn }} | Fe={{ dna.Fe }} | Cu={{ dna.Cu }} | Co={{ dna.Co }}<br/>
+                                           Zn={{ dna.Zn }} | Si={{ dna.Si }} </p>
 
 
-                    <ul>
-                        <li>N={{ Dynamic_Nutrient_Accumulated.N }}</li>
-                       <li>P={{ Dynamic_Nutrient_Accumulated.P }}</li>
-                        <li>K={{ Dynamic_Nutrient_Accumulated.K }}</li>
-                        <li>Ca={{ Dynamic_Nutrient_Accumulated.Ca }}</li>
-                        <li>S={{ Dynamic_Nutrient_Accumulated.S }}</li>
-                        <li>Mg={{ Dynamic_Nutrient_Accumulated.Mg }}</li>
-                        <li>Mn={{ Dynamic_Nutrient_Accumulated.Mn }}</li>
-                        <li>Fe={{ Dynamic_Nutrient_Accumulated.Fe }}</li>
-                        <li>Cu={{ Dynamic_Nutrient_Accumulated.Cu }}</li>
-                        <li>Co={{ Dynamic_Nutrient_Accumulated.Co }}</li>
-                        <li>Zn={{ Dynamic_Nutrient_Accumulated.Zn }}</li>
-                        <li>Si={{ Dynamic_Nutrient_Accumulated.Si }}</li>
-
-                    </ul>
-
-                <!-- Plant is a Nitrogen Fixator and/or Nursing Plant -->
-                    <p class="text-center">Plant is a Nitrogen Fixator: {{ Nitrogen_Fixers_Nursing.check_nitrogen }}</p>
-                    <p class="text-center">Plant is a Nurse: {{ Nitrogen_Fixers_Nursing.nursery }}</p>
-                    <p class="text-center">Additional comment regarding this plant (<em>Ex. Mulberry is a pioneer tree, but can tolerate shade.</em>): {{ Nitrogen_Fixers_Nursing.nursery }}</p>
+                 <!--Plant is a Nitrogen Fixator and/or Nursing Plant-->
+                    <p class="text-left">Plant is a Nitrogen Fixator: {{ nfn.check_nitrogen }}</p>
+                    <p class="text-left">Plant is a Nurse: {{ nfn.nursery }}</p>
+                    <p class="text-left">Additional comment regarding this plant (<em id="comment">Ex. Mulberry is a pioneer tree, but can tolerate shade.</em>):<br/>
+                        {{ nfn.comment }}</p>
 
 
             </div>
