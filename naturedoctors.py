@@ -6,29 +6,38 @@ app = Flask(__name__)  #app variable is an instance of the Flask class."__name__
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///plants.db'
 db = SQLAlchemy(app)
 
-posts = [
+plants = [
     {
-      'author': 'Samuel M',
-       'Plant': 'Lalea Latina',
-        'content': 'Short Description',
-        'date_posted': 'April 20, 2020'
-    },
-    {
-      'author': 'Marinica',
-       'Plant': 'Trandafir Latin',
-        'content': 'Short ',
-        'date_posted': 'April 21, 2019'
+      'author':'Sami',
+      'common_name': 'Lalea',
+       'botanical_name': 'Lalea Latina',
+        'short_description': 'This is a beautiful smelly plant',
+        'date_added': 'April 20, 2020'
     }
-
 ]
+medicinal_use = [{
+    'usage':'Stress relief'
+}
+]
+Dynamic_Nutrient_Accumulated=[{
+    'N':'True',
+    'P':'True',
+    'K':'False',
+    'Ca':'True',
+    'Mg':'True',
+}]
+Nitrogen_Fixers_Nursing=[{
+    'nursery':'True'
+
+}]
 #Routes
 @app.route("/")
 @app.route("/index")   #@app is a decorator that add extra functionality to existing functions. In this case it will handle all the complicated backendstuff and allows us to write a function to view on browser.
 def index():
-    return render_template('index.html', posts=posts)
+    return render_template('index.html')
 @app.route("/plants")
 def plants():
-    return render_template('plants.html', title= 'Plants')
+    return render_template('plants.html', title= 'Plants', plants=plants, medicinal_use=medicinal_use, Dynamic_Nutrient_Accumulated=Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing=Nitrogen_Fixers_Nursing)
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')

@@ -9,23 +9,57 @@
             <div class="col-12">
                 <p class="text-center">Here we can learn about plants and why we called them Nature's Doctors.<br/>
                     They can help not only humans, but assist the whole environment. <br/>
-                    <ul class="text-left" id="docplant">
-                        <li>They can improve or rebuild soil life.</li>
-                        <li>They help and support other species through nutrients.</li>
-                        <li>They attract beneficial insects to our gardens.</li>
-                        <li>Some species of plants can act as natural pesticides.</li>
-                        <li>They are used to treat or heal various human symptoms.</li>
-                    </ul></p>
+                    Search for plants by scientific name, common name or by nutrients. </p>
             </div>
         </div>
-        {% for post in posts %}
-         <h2 class="text-left">{{ post.Plant }}</h2>
-        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
-        <p class="text-left">{{ post.content }}</p>
+        <div class="row">
+            <div class="col-12 col-lg-3 ">
+                <h2>Search for a plant</h2>
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a common name" aria-label="Search">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a botanical name" aria-label="Search">
+                    <h5 class="h5 my-2">Search  by Nitrogen Fixating Plants</h5>
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search for nitrogen" aria-label="Search">
+                     <h5 class="h5 my-2">Search  by Dynamic Nutrient Accumulators</h5>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search plants DNA" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-9">
+                <h2 class="text-center">Plants Database</h2>
+                 
+                    <h3 class="text-center"> <img src="{{ url_for('static', filename='img/default_plant_pic.jpg') }}" alt="Plant image"  />Common name: {{ plants.common_name }}</h3>
+                    <h3 class="text-center">Scientific name: {{ plants.botanical_name }}</h3>
+                    <p class="text-center">Plant added by {{ plants.author }} on {{ plants.date_added }}</p>
+                    <p class="text-center">A brief description{{ plants.short_description }}</p>
+                    <p class="text-center">Medicinal use: {{ medicinal_use.usage }}</p>
+                <!-- IF DNA exists, print it here-->
+                    <p class="text-center">Nutrients that the plant can draw from deep in the soild: </p>
 
-        {% endfor %}
+
+                    <ul>
+                        <li>N={{ Dynamic_Nutrient_Accumulated.N }}</li>
+                       <li>P={{ Dynamic_Nutrient_Accumulated.P }}</li>
+                        <li>K={{ Dynamic_Nutrient_Accumulated.K }}</li>
+                        <li>Ca={{ Dynamic_Nutrient_Accumulated.Ca }}</li>
+                        <li>S={{ Dynamic_Nutrient_Accumulated.S }}</li>
+                        <li>Mg={{ Dynamic_Nutrient_Accumulated.Mg }}</li>
+                        <li>Mn={{ Dynamic_Nutrient_Accumulated.Mn }}</li>
+                        <li>Fe={{ Dynamic_Nutrient_Accumulated.Fe }}</li>
+                        <li>Cu={{ Dynamic_Nutrient_Accumulated.Cu }}</li>
+                        <li>Co={{ Dynamic_Nutrient_Accumulated.Co }}</li>
+                        <li>Zn={{ Dynamic_Nutrient_Accumulated.Zn }}</li>
+                        <li>Si={{ Dynamic_Nutrient_Accumulated.Si }}</li>
+
+                    </ul>
+
+                <!-- Plant is a Nitrogen Fixator and/or Nursing Plant -->
+                    <p class="text-center">Plant is a Nitrogen Fixator: {{ Nitrogen_Fixers_Nursing.check_nitrogen }}</p>
+                    <p class="text-center">Plant is a Nurse: {{ Nitrogen_Fixers_Nursing.nursery }}</p>
+                    <p class="text-center">Additional comment regarding this plant (<em>Ex. Mulberry is a pioneer tree, but can tolerate shade.</em>): {{ Nitrogen_Fixers_Nursing.nursery }}</p>
+
+
+            </div>
+        </div>
+
     {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
-     {% block content_right %}
-        <h3 class="text-center">This is the plant info page</h3>
-        <p class="text-center">LOREM    LOREM</p>
-     {% endblock content_right %}
