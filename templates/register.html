@@ -1,14 +1,33 @@
 {% extends "layout.html" %}
     {% block content %}
-        <h1 class="text-center">Nature's Doctors</h1>
-        {% for post in posts %}
-         <h2 class="text-left">{{ post.Plant }}</h2>
-        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
-        <p class="text-left">{{ post.content }}</p>
+        <div class="row">
+            <h1 class="col-12 my-3 text-center" id="heading">Register</h1>
+        </div>
+        <div class="row">
+            <div class="col-6" id="register">
+                    <form id="registration">
+                          <div class="form-group">
+                            <label for="inputUserame">Username</label>
+                            <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPassword">Password</label>
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputConfirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password">
+                          </div>
+                          <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+            </div>
+        </div>
 
-        {% endfor %}
-    {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
-     {% block content_right %}
-        <h3 class="text-center">This is the plant info page</h3>
-        <p class="text-center">LOREM    LOREM</p>
-     {% endblock content_right %}
+
+
+    {% endblock content %}

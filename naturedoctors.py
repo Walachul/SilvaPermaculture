@@ -30,6 +30,7 @@ Nitrogen_Fixers_Nursing={
     'check_nitrogen': 'False',
     'comment': 'This plant works best in full sunlight and requires lot of water.'
 }
+
 #Routes
 @app.route("/")
 @app.route("/index")   #@app is a decorator that add extra functionality to existing functions. In this case it will handle all the complicated backendstuff and allows us to write a function to view on browser.

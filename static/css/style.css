@@ -58,3 +58,11 @@ body{
     font-size:14px;
     font-weight:400
 }
+
+/**** Registration Page ****/
+#register{
+    background: linear-gradient(to right, #08B200, #719800)
+}
+#registration{
+    color: white;
+}
