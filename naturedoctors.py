@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, flash, redirect
 from forms import UserRegistrationForm, UserLoginForm
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
@@ -51,9 +51,12 @@ def about():
 def login():
     form = UserLoginForm()
     return render_template('login.html', title= 'Login', form=form)
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = UserRegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Successfully created account for {form.username.data}! You can now login.', 'success')
+        return redirect(url_for('index'))
     return render_template('register.html', title= 'Register', form=form)
 @app.route("/contact")
 def contact():

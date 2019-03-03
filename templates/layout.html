@@ -65,6 +65,20 @@ crossorigin="anonymous">
 <!--MAIN Section-->
 <main>
     <div class="container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                   {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="row">
+                            <div class="col-6 mx-auto">
+                                <div class="text-center alert alert-{{ category }}">
+                                  {{ message }}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                   {% endif%}
+                {% endwith %}
                 {% block content %}
 
                 {% endblock content %}
