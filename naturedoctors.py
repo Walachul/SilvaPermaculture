@@ -1,11 +1,12 @@
 from datetime import datetime
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+from config import Config
 
 app = Flask(__name__)  #app variable is an instance of the Flask class."__name__" is a special variable._It is just the name of the module._
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///plants.db'
 db = SQLAlchemy(app)
-
+app.config.from_object(Config)
 Plants={
       'author': 'Alexandra Morarescu',
       'commonName': 'Trandafir',
