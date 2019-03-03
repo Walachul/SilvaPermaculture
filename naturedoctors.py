@@ -56,7 +56,7 @@ def register():
     form = UserRegistrationForm()
     if form.validate_on_submit():
         flash(f'Successfully created account for {form.username.data}! You can now login.', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('register.html', title= 'Register', form=form)
 @app.route("/contact")
 def contact():
