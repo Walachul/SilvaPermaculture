@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template, url_for
+from forms import UserRegistrationForm, UserLoginForm
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
@@ -8,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///plants.db'
 db = SQLAlchemy(app)
 app.config.from_object(Config)
 Plants={
-      'author': 'Alexandra Morarescu',
+      'author': 'Username User',
       'commonName': 'Trandafir',
       'botanicalName': 'Rosa Regalis',
       'shortDescription': 'This is a beautiful plant.',
@@ -48,10 +49,12 @@ def about():
     return render_template('about.html', title= 'About')
 @app.route("/login")
 def login():
-    return render_template('login.html', title= 'Login')
+    form = UserLoginForm()
+    return render_template('login.html', title= 'Login', form=form)
 @app.route("/register")
 def register():
-    return render_template('register.html', title= 'Register')
+    form = UserRegistrationForm()
+    return render_template('register.html', title= 'Register', form=form)
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')

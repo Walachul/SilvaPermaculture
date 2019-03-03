@@ -1,14 +1,26 @@
 {% extends "layout.html" %}
     {% block content %}
-        <h1 class="text-center">Nature's Doctors</h1>
-        {% for post in posts %}
-         <h2 class="text-left">{{ post.Plant }}</h2>
-        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
-        <p class="text-left">{{ post.content }}</p>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center heading">Login with Username or Email</h1>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-12 col-lg-6 mx-auto my-5" id="register">
+                    <form id="registration" class="my-4">
+                          <div class="form-group">
+                            <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
+                          </div>
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                          </div>
+                          <div class="form-group">
+                             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                          </div>
+                          <button type="submit" class="btn float-right my-2" id="register-btn">Login</button>
+                    </form>
+            </div>
+        </div>
 
-        {% endfor %}
-    {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
-     {% block content_right %}
-        <h3 class="text-center">This is the plant info page</h3>
-        <p class="text-center">LOREM    LOREM</p>
-     {% endblock content_right %}
+
+    {% endblock content %}
