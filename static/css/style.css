@@ -60,13 +60,13 @@ body{
 }
 
 /**** Registration Page ****/
-#register{
+#register, #login{
     background: linear-gradient(to right, rgba(9,194,0,0.7), rgba(125,168,0,0.5))
 }
 #registration{
     color: white;
 }
-#register-btn{
+#register-btn, #login-btn{
     color:white;
     background-color: #E5530B
 }

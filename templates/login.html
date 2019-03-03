@@ -2,22 +2,55 @@
     {% block content %}
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center" id="heading">Login with Username or Email</h1>
+                <h1 class="my-3 text-center" id="heading">Login</h1>
             </div>
         </div>
-         <div class="row">
-            <div class="col-12 col-lg-6 mx-auto my-5" id="register">
-                    <form id="registration" class="my-4">
+        <div class="row">
+            <div class="col-12 col-lg-6 mx-auto my-5" id="login">
+                    <form id="registration" class="my-4" method="POST" action="">
+                        {{ form.hidden_tag() }} <!-- CSRF token -->
                           <div class="form-group">
-                            <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
+                              {{ form.username.label(class="form-control-label") }}
+                              {% if form.username.errors %}
+                                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ form.username(class="form-control form-control-lg") }}
+                              {% endif %}
                           </div>
                           <div class="form-group">
-                             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                              {{ form.password.label(class="form-control-label") }}
+                              {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ form.password(class="form-control form-control-lg") }}
+                              {% endif %}
                           </div>
-                          <button type="submit" class="btn float-right my-2" id="register-btn">Login</button>
+                          <div class="form-check">
+                              {{ form.remember_me(class="form-check-input") }}
+                              {{ form.remember_me.label(class="form-check-label") }}
+                          </div>
+                              {{ form.submit(class="btn float-right my-2", id="login-btn") }}
                     </form>
             </div>
         </div>
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <small class="text-muted text-center">
+                    Do you need an account? <a class="ml-2 btn-outline-success" href="{{ url_for('register') }}">Sign up</a>
+                </small>
+            </div>
+        </div>
+
 
 
     {% endblock content %}
