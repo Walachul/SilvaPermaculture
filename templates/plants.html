@@ -5,27 +5,51 @@
                 <h1 class="text-center" id="heading">Plants Database - Nature's Doctors</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
+        <div class="row my-3">
+            <div class="col-12 mb-2">
                 <p class="text-center">Here we can learn about plants and why we called them Nature's Doctors.<br/>
                     They can help not only humans, but assist the whole environment. <br/>
-                    <ul class="text-left" id="docplant">
-                        <li>They can improve or rebuild soil life.</li>
-                        <li>They help and support other species through nutrients.</li>
-                        <li>They attract beneficial insects to our gardens.</li>
-                        <li>Some species of plants can act as natural pesticides.</li>
-                        <li>They are used to treat or heal various human symptoms.</li>
-                    </ul></p>
+                    Search for plants by scientific name, common name or by nutrients. </p>
             </div>
         </div>
-        {% for post in posts %}
-         <h2 class="text-left">{{ post.Plant }}</h2>
-        <p class="text-left">By {{ post.author }} on {{ post.date_posted }}</p>
-        <p class="text-left">{{ post.content }}</p>
+        <div class="row">
+            <div class="col-12 col-lg-3 ">
+                <h3 class="my-2 text-center">Search for a plant</h3>
+                <form class="form-inline my-2 my-lg-0">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a common name" aria-label="Search">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a botanical name" aria-label="Search">
+                    <h5 class="h5 my-2">Search  by Nitrogen Fixating Plants</h5>
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search for nitrogen" aria-label="Search">
+                     <h5 class="h5 my-2">Search  by Dynamic Nutrient Accumulators</h5>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search plants DNA" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-9">
+                <h2 class="my-2 text-center heading">Database</h2>
 
-        {% endfor %}
+                <h4 class="text-left">Common name: <span class="titles">{{ plant.commonName }}</span></h4>
+                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanicalName }} </span></h4>
+                    <p class="text-left">Plant added by {{ plant.author }} on {{ plant.dateAdded }} </p>
+                <p class="text-left">A brief description: <em>{{ plant.shortDescription }}</em> </p>
+
+                <p class="text-left">Medicinal use: <em>{{ meds.usage }}</em></p>
+                     <!-- IF DNA exists, print it here-->
+                    <p class="text-left">Nutrients that the plant can draw from deep in the soil: </p>
+
+                    <p class="text-left">N={{ dna.N }} | P={{ dna.P }} | K={{ dna.K }} | Ca={{ dna.Ca }} | S={{ dna.S }}<br/>
+                                           Mg={{ dna.Mg }} | Mn={{ dna.Mn }} | Fe={{ dna.Fe }} | Cu={{ dna.Cu }} | Co={{ dna.Co }}<br/>
+                                           Zn={{ dna.Zn }} | Si={{ dna.Si }} </p>
+
+
+                 <!--Plant is a Nitrogen Fixator and/or Nursing Plant-->
+                    <p class="text-left">Plant is a Nitrogen Fixator: {{ nfn.check_nitrogen }}</p>
+                    <p class="text-left">Plant is a Nurse: {{ nfn.nursery }}</p>
+                    <p class="text-left">Additional comment regarding this plant (<em id="comment">Ex. Mulberry is a pioneer tree, but can tolerate shade.</em>):<br/>
+                        {{ nfn.comment }}</p>
+
+
+            </div>
+        </div>
+
     {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
-     {% block content_right %}
-        <h3 class="text-center">This is the plant info page</h3>
-        <p class="text-center">LOREM    LOREM</p>
-     {% endblock content_right %}

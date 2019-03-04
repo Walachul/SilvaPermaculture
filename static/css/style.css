@@ -48,9 +48,25 @@ body{
     background-size: cover
 }
 /**** Plant Database Page ****/
-#docplant{
-    list-style-type: none;
-    margin: 0;
-    padding:0
+.titles{
+    color: #E5530B;
+    font-family: 'Josefin Sans';
+    font-size:22px
+}
+#comment{
+    color: #E5530B;
+    font-size:14px;
+    font-weight:400
+}
 
+/**** Registration Page ****/
+#register, #login{
+    background: linear-gradient(to right, rgba(9,194,0,0.7), rgba(125,168,0,0.5))
+}
+#registration{
+    color: white;
+}
+#register-btn, #login-btn{
+    color:white;
+    background-color: #E5530B
 }
