@@ -1,72 +1,6 @@
 from datetime import datetime
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import UserRegistrationForm, UserLoginForm
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from silvapermaculture import db
 
-app = Flask(__name__)  #app variable is an instance of the Flask class."__name__" is a special variable._It is just the name of the module._
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///plants.db'
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-
-
-Plants = {
-      'author': 'User Hello',
-      'commonName': 'Trandafir',
-      'botanicalName': 'Rosa Regalis',
-      'shortDescription': 'This is a beautiful plant.',
-      'dateAdded': 'April 20, 2021'
-    }
-
-medicinal_use = {
-    'usage':'Stress relief'
-}
-
-Dynamic_Nutrient_Accumulated = {
-    'N': 'True',
-    'P': 'True',
-    'K': 'False',
-    'Ca': 'True',
-    'Mg': 'True'
-}
-Nitrogen_Fixers_Nursing = {
-    'nursery': 'True',
-    'check_nitrogen': 'False',
-    'comment': 'This plant works best in full sunlight and requires lot of water.'
-}
-
-
-
-#Routes
-@app.route("/")
-@app.route("/index")
-def index():
-    return render_template('index.html')
-@app.route("/plants")
-def plants():
-    return render_template('plants.html', title= 'Plants', plant=Plants, meds=medicinal_use, dna=Dynamic_Nutrient_Accumulated, nfn=Nitrogen_Fixers_Nursing)
-@app.route("/statistics")
-def statistics():
-    return render_template('statistics.html', title= 'Statistics')
-@app.route("/about")
-def about():
-    return render_template('about.html', title= 'About')
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    form = UserLoginForm()
-    return render_template('login.html', title= 'Login', form=form)
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form = UserRegistrationForm()
-    if form.validate_on_submit():
-        flash(f'Successfully created account for {form.username.data}! You can now login.', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', title= 'Register', form=form)
-@app.route("/contact")
-def contact():
-    return render_template('contact.html', title= 'Contact')
-"""
-#Models for the database
 
 #Models for the database
 
@@ -134,6 +68,3 @@ class Nitrogen_Fixers_Nursing(db.Model):
 
     def __repr__(self):
         return f"Nitrogen_Fixers_Nursing('{self.check_nitrogen}', '{self.nursery}', '{self.plant_id}')"
-"""
-if __name__ == '__main__':  #The condition is true if we run the script directly.
-    app.run(debug=True)
