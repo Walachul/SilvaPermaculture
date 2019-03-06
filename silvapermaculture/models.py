@@ -14,7 +14,7 @@ class User(db.Model):
     add_plants = db.relationship('Plants', backref = 'author', lazy=True)
 
     def __repr__(self):  #How is the objected printed when we print it out. Thunder/Magic method.
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.image_file}')"
 #Plants Table
 class Plants(db.Model):
     id = db.Column(db.Integer, primary_key=True)
