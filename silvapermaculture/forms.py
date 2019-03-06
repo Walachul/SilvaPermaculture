@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+from silvapermaculture.models import User
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username',
@@ -9,6 +10,12 @@ class UserRegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign up')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is taken. Please choose another one.')
+
 
 class UserLoginForm(FlaskForm):
     username = StringField('Username',
