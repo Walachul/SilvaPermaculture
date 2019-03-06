@@ -2,7 +2,8 @@ from flask import render_template, url_for, flash, redirect
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
+
 
 
 Plants = {
@@ -74,6 +75,13 @@ def register():
         flash(f'Successfully created account! You can now login.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title= 'Register', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')
