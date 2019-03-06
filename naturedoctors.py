@@ -10,10 +10,36 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 
+Plants = {
+      'author': 'User Hello',
+      'commonName': 'Trandafir',
+      'botanicalName': 'Rosa Regalis',
+      'shortDescription': 'This is a beautiful plant.',
+      'dateAdded': 'April 20, 2021'
+    }
+
+medicinal_use = {
+    'usage':'Stress relief'
+}
+
+Dynamic_Nutrient_Accumulated = {
+    'N': 'True',
+    'P': 'True',
+    'K': 'False',
+    'Ca': 'True',
+    'Mg': 'True'
+}
+Nitrogen_Fixers_Nursing = {
+    'nursery': 'True',
+    'check_nitrogen': 'False',
+    'comment': 'This plant works best in full sunlight and requires lot of water.'
+}
+
+
 
 #Routes
 @app.route("/")
-@app.route("/index")   #@app is a decorator that add extra functionality to existing functions. In this case it will handle all the complicated backendstuff and allows us to write a function to view on browser.
+@app.route("/index")
 def index():
     return render_template('index.html')
 @app.route("/plants")
@@ -39,8 +65,11 @@ def register():
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')
+"""
+#Models for the database
 
 #Models for the database
+
 
 #Users
 class User(db.Model):
@@ -105,6 +134,6 @@ class Nitrogen_Fixers_Nursing(db.Model):
 
     def __repr__(self):
         return f"Nitrogen_Fixers_Nursing('{self.check_nitrogen}', '{self.nursery}', '{self.plant_id}')"
-
+"""
 if __name__ == '__main__':  #The condition is true if we run the script directly.
     app.run(debug=True)
