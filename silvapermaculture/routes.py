@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
+from flask_login import login_user
 
 
 Plants = {
@@ -48,6 +49,13 @@ def about():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = UserLoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect(url_for('index'))
+        else:
+            flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title= 'Login', form=form)
 @app.route("/register", methods=['GET', 'POST'])
 def register():
