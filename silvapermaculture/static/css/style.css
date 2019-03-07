@@ -70,3 +70,26 @@ body{
     color:white;
     background-color: #E5530B
 }
+/**** Account Page ****/
+#account{
+    position:relative
+}
+#borderaccount{
+    position: absolute;
+    bottom: 0px;
+    left: 0x;
+    width: 176px;
+    height: 1px;
+    background-color: black;
+    z-index: 2;
+}
+
+#btn-addplant{
+    color:#4B9B2F;
+    font-size:34px;
+    transition: all .8s;
+}
+#btn-addplant:hover{
+    color:#E5530B;
+    transform: rotate(360deg)
+}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+   {% block content %}
+        <div class="row">
+            <div class="col-12">
+                <h1 class="my-3 text-left" id="heading">Welcome <img src="{{ url_for('static', filename='img/default.png') }}" style="height:50px; width:50px; " alt="Default user image"/> {{ current_user.username }} </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4 my-5">
+                <h3 class="text-left" id="account">Account Info<div id="borderaccount"></div></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <p class="text-left">Change your username</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <p class="text-left">Change your profile picture</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4 mb-4">
+                <p class="text-left">Add a plant to the database</p>
+                <a href="#"  id="seed"><i class="fas fa-seedling" id="btn-addplant"></i></a>
+            </div>
+        </div>
+   {% endblock content %}

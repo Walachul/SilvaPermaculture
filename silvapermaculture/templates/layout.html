@@ -45,6 +45,9 @@ crossorigin="anonymous">
                                     </li>
                                     {% if current_user.is_authenticated %}
                                         <li class="nav-item mx-1 ">
+                                            <a class="nav-link items" href="{{ url_for('account') }}">Account</a>
+                                        </li>
+                                        <li class="nav-item mx-1 ">
                                             <a class="nav-link items" href="{{ url_for('logout') }}">Logout</a>
                                         </li>
                                     {% else %}
