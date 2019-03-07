@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
@@ -56,8 +56,9 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next') #query parameter
             flash('Logged in successfully.', 'success')
-            return redirect(url_for('index'))
+            return redirect(next_page) if next_page else redirect(url_for('index'))#Direct the user to the page he wanted to go when he tried to access it without being logged in, if the next parameter exists.
         else:
             flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title= 'Login', form=form)
