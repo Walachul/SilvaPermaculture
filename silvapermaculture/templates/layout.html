@@ -31,36 +31,36 @@ crossorigin="anonymous">
                             </button>
                             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                                 <ul class="navbar-nav mt-3">
-                                    <li class="nav-item  mx-1 ">
+                                    <li class="nav-item mx-1">
                                         <a class="nav-link items" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
                                     </li>
-                                    <li class="nav-item mx-1  ">
+                                    <li class="nav-item mx-1">
                                         <a class="nav-link items" href="{{ url_for('plants') }}">Plants</a>
                                     </li>
-                                    <li class="nav-item mx-1 ">
+                                    <li class="nav-item mx-1">
                                         <a class="nav-link items" href="{{ url_for('statistics') }}">Statistics</a>
                                     </li>
-                                    <li class="nav-item mx-1 ">
+                                    <li class="nav-item mx-1">
                                         <a class="nav-link items" href="{{ url_for('about') }}">About</a>
                                     </li>
                                     {% if current_user.is_authenticated %}
-                                        <li class="nav-item mx-1 ">
-                                            <a class="nav-link items" href="{{ url_for('account') }}">Account</a>
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link items"  href="{{ url_for('account') }}">Account</a>
                                         </li>
-                                        <li class="nav-item mx-1 ">
-                                            <a class="nav-link items" href="{{ url_for('logout') }}">Logout</a>
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link items"  href="{{ url_for('logout') }}">Logout</a>
                                         </li>
                                     {% else %}
 
-                                        <li class="nav-item mx-1 ">
+                                        <li class="nav-item mx-1">
                                             <a class="nav-link items" href="{{ url_for('login') }}">Login</a>
                                         </li>
-                                        <li class="nav-item mx-1 ">
+                                        <li class="nav-item mx-1">
                                             <a class="nav-link items" href="{{ url_for('register') }}">Register</a>
                                         </li>
                                     {% endif %}
-                                    <li class="nav-item mx-1 ">
-                                        <a class="nav-link items" href="{{ url_for('contact') }}">Contact</a>
+                                    <li class="nav-item mx-1">
+                                        <a class="nav-link items"  href="{{ url_for('contact') }}">Contact</a>
                                     </li>
                                 </ul>
                             </div>
