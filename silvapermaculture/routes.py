@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 
@@ -82,6 +82,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route("/account")
+@login_required
 def account():
 
     return render_template('account.html', title='Account')
