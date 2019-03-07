@@ -90,7 +90,7 @@ def account():
         current_user.username = form.username.data
         db.session.commit()
         flash(f'Your account has been updated!', 'success')
-        return redirect(url_for('account'))
+        return redirect(url_for('account')) #User is redirected here so in order to avoid POST-GET redirect pattern. Browser sends GET req, not POST
     elif request.method == 'GET':
         form.username.data = current_user.username
     image_file = url_for('static', filename='img/profile_user/' + current_user.image_file)

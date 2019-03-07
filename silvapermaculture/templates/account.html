@@ -14,7 +14,7 @@
             <div class="col-12 col-lg-4">
                 <p class="text-left">Change your username</p>
                 <div class="input-group mb-3">
-                    <form method="POST" action="">
+                    <form method="POST" action="" enctype="multipart/form-data"><!-- enctype = special encoding to pass image data correctly -->
                         {{ form.hidden_tag() }} <!-- CSRF token -->
                           <div class="form-group">
                                 {% if form.username.errors %}
@@ -26,6 +26,15 @@
                                 </div>
                               {% else %}
                               {{ form.username(class="form-control form-control-lg") }}
+                              {% endif %}
+                          </div>
+                          <div class="form-group">
+                              {{ form.profilePic.label() }}
+                              {{ form.profilePic(class="form-control-file") }}
+                              {% if form.profilePic.errors %}
+                                 {% for error in form.profilePic.errors %}
+                                        <span class="text-danger">{{ error }}</span><br/>
+                                    {% endfor %}
                               {% endif %}
                           </div>
                             {{ form.submit(class="btn float-right my-2", id="register-btn") }}
