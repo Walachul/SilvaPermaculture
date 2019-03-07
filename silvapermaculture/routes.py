@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -85,8 +85,10 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
+    form = UpdateAccountForm()
     image_file = url_for('static', filename='img/profile_user/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file)
+    return render_template('account.html', title='Account',
+                           image_file=image_file, form=form)
 
 
 @app.route("/contact")

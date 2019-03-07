@@ -14,8 +14,22 @@
             <div class="col-12 col-lg-4">
                 <p class="text-left">Change your username</p>
                 <div class="input-group mb-3">
-                    <p class="text-left">Your current username is <span class="font-weight-bold">{{ current_user.username }}</span><br/>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"></p>
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }} <!-- CSRF token -->
+                          <div class="form-group">
+                                {% if form.new_username.errors %}
+                                    {{ form.new_username(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.new_username.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ form.new_username(class="form-control form-control-lg") }}
+                              {% endif %}
+                          </div>
+                            {{ form.submit(class="btn float-right my-2", id="register-btn") }}
+                    </form>
 
                 </div>
             </div>
