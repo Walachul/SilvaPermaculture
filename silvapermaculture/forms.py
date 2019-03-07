@@ -27,14 +27,14 @@ class UserLoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class UpdateAccountForm(FlaskForm):
-    new_username = StringField('New username', render_kw={"placeholder": "New username"},
+    username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
 
     submit = SubmitField('Update')
 
-    def validate_username(self, new_username):
-        if new_username.data != current_user.username:
-            user = User.query.filter_by(new_username=username.data).first()
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError('That username is taken. Please choose another one.')
 
