@@ -5,10 +5,11 @@ from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from silvapermaculture.models import User
 
 class UserRegistrationForm(FlaskForm):
-    username = StringField('Username',
+    username = StringField('Username', render_kw={"placeholder": "Username"},
                            validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password',
+    password = PasswordField('Password',render_kw={"placeholder": "Enter password"},
+                             validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',render_kw={"placeholder": "Confirm password"},
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign up')
 
@@ -19,9 +20,9 @@ class UserRegistrationForm(FlaskForm):
 
 
 class UserLoginForm(FlaskForm):
-    username = StringField('Username',
+    username = StringField('Username', render_kw={"placeholder": "Username"},
                            validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password',render_kw={"placeholder": "Password"}, validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
