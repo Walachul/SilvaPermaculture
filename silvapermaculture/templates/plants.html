@@ -28,26 +28,10 @@
             <div class="col-12 col-lg-9">
                 <h2 class="my-2 text-center heading">Database</h2>
 
-                <h4 class="text-left">Common name: <span class="titles">{{ plant.commonName }}</span></h4>
-                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanicalName }} </span></h4>
-                    <p class="text-left">Plant added by {{ plant.author }} on {{ plant.dateAdded }} </p>
-                <p class="text-left">A brief description: <em>{{ plant.shortDescription }}</em> </p>
-
-                <p class="text-left">Medicinal use: <em>{{ meds.usage }}</em></p>
-                     <!-- IF DNA exists, print it here-->
-                    <p class="text-left">Nutrients that the plant can draw from deep in the soil: </p>
-
-                    <p class="text-left">N={{ dna.N }} | P={{ dna.P }} | K={{ dna.K }} | Ca={{ dna.Ca }} | S={{ dna.S }}<br/>
-                                           Mg={{ dna.Mg }} | Mn={{ dna.Mn }} | Fe={{ dna.Fe }} | Cu={{ dna.Cu }} | Co={{ dna.Co }}<br/>
-                                           Zn={{ dna.Zn }} | Si={{ dna.Si }} </p>
-
-
-                 <!--Plant is a Nitrogen Fixator and/or Nursing Plant-->
-                    <p class="text-left">Plant is a Nitrogen Fixator: {{ nfn.check_nitrogen }}</p>
-                    <p class="text-left">Plant is a Nurse: {{ nfn.nursery }}</p>
-                    <p class="text-left">Additional comment regarding this plant (<em id="comment">Ex. Mulberry is a pioneer tree, but can tolerate shade.</em>):<br/>
-                        {{ nfn.comment }}</p>
-
+                <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
+                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h4>
+                    <p class="text-left">Plant added by {{ plant.author }} on {{ plant.date_added }} </p>
+                <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
 
             </div>
         </div>

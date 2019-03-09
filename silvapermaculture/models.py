@@ -26,7 +26,7 @@ class Plants(db.Model):
     common_name = db.Column(db.String(40), nullable=False)
     botanical_name = db.Column(db.String(80), unique=True, nullable=False)
     short_description = db.Column(db.Text, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default_plant_pic.jpg')
+    image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     medicinal=db.relationship('Medicinal_Use', backref='plant', lazy=True )
