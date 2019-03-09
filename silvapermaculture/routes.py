@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlant
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -121,6 +121,16 @@ def account():
     image_file = url_for('static', filename='img/profile_user/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+#Router for users to add a plant to the database
+@app.route("/plants/new", methods=['GET', 'POST'])
+@login_required# User must be logged in to create a new plant
+def new_plant():
+    form = NewPlant()
+    if form.validate_on_submit():
+        flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
+        return redirect(url_for('plants'))
+    return render_template('new_plant.html', title='Add new plant', form=form)
 
 
 @app.route("/contact")
