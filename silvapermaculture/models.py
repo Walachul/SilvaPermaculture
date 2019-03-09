@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default = 'default.png')
     add_plants = db.relationship('Plants', backref = 'author', lazy=True)
 
-    def __repr__(self):  #How is the objected printed when we print it out. Thunder/Magic method.
+    def __repr__(self):  #How is the objected printed when we print it out. Dunder/Magic method.
         return f"User('{self.username}', '{self.image_file}')"
 #Plants Table
 class Plants(db.Model):
