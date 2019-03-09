@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm
@@ -82,11 +84,26 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+def save_picture(form_profilePic):
+    """
+    Change img filename to be a random hex, instead of keeping the original name of the file,
+    in order to avoid having files with the same name.
+    """
+    random_hex_image = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_profilePic.filename)
+    picture_fn = random_hex_image + f_ext
+    picture_path = os.path.join(app.root_path, 'static/img/profile_user', picture_fn) #Saving the new profilePic to the specified folder.
+    form_profilePic.save(picture_path)
+    return picture_fn
+
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
+        if form.profilePic.data:
+            picture_file = save_picture(form.profilePic.data)
+            current_user.image_file = picture_file
         current_user.username = form.username.data
         db.session.commit()
         flash(f'Your account has been updated!', 'success')
