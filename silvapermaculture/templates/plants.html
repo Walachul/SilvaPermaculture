@@ -27,12 +27,13 @@
             </div>
             <div class="col-12 col-lg-9">
                 <h2 class="my-2 text-center heading">Database</h2>
-
+               <img class="img-fluid rounded-circle " src="{{ image_file }}"  alt="Default plant image"/>
+                {% for plant in plants %}
                 <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
                     <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h4>
                     <p class="text-left">Plant added by {{ plant.author }} on {{ plant.date_added }} </p>
                 <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
-
+                {% endfor %}
             </div>
         </div>
 

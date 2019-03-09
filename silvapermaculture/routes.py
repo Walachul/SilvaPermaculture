@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlant
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm
 from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -15,7 +15,7 @@ def index():
 @app.route("/plants")
 def plants():
     plants = Plants.query.all()
-    return render_template('plants.html', title= 'Plants Database', plant=plants)
+    return render_template('plants.html', title= 'Plants Database', plants=plants)
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')
@@ -94,34 +94,19 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
-#Function to update plant picture
-def save_plant_picture(form_plantPic):
-    """
-    Change img filename to be a random hex, instead of keeping the original name of the file,
-    in order to avoid having files with the same name.
-    """
-    random_hex_image = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_plantPic.filename)
-    picture_fn = random_hex_image + f_ext
-    picture_path = os.path.join(app.root_path, 'static/img/plants', picture_fn) #Saving the new plantPic to the specified folder.
-    scale_image = (125, 125)
-    img_new = Image.open(form_plantPic)
-    img_new.thumbnail(scale_image)
-    img_new.save(picture_path)
-    return picture_fn
 
 #Router for users to add a plant to the database
 @app.route("/plants/new", methods=['GET', 'POST'])
 @login_required# User must be logged in to create a new plant
 def new_plant():
-    form = NewPlant()
+    form = NewPlantForm()
     if form.validate_on_submit():
-        new_plant = Plants(common_name=form.common_name.data, botanical_name=form.botanical_name, short_description=form.short_description, image_file=form.plantPic, author=current_user)
+        new_plant = Plants(common_name = form.common_name.data, botanical_name = form.botanical_name.data, short_description = form.short_description.data, author=current_user)
         db.session.add(new_plant)
         db.session.commit()
         flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
         return redirect(url_for('plants'))
-    image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
+    image_file = url_for('static', filename='img/plants/' + plant.id.image_file)
     return render_template('new_plant.html', title='Add new plant', image_file=image_file, form=form)
 
 

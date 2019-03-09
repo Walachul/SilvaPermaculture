@@ -39,14 +39,13 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That username is taken. Please choose another one.')
 
-class NewPlant(FlaskForm):
+class NewPlantForm(FlaskForm):
     common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
                               validators=[DataRequired(), Length(min=2, max=40)])
     botanical_name = StringField('Botanical Name', render_kw={"placeholder": "Botanical name"},
                                  validators=[DataRequired(), Length(min=2, max=80)])
     short_description = TextAreaField('Short Description', render_kw={"placeholder": "Please add a short description"},
                                       validators=[DataRequired()])
-    plantPic = FileField('Update Plant Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add plant')
 
 
