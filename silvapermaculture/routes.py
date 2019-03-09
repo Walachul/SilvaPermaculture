@@ -106,8 +106,12 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.profilePic.data:
+            existing_profile_img = current_user.image_file
             picture_file = save_picture(form.profilePic.data)
             current_user.image_file = picture_file#Update user profile picture.
+            if existing_profile_img is not None:#Deleting old image of the user after updating
+                existing_profile_img_path= os.path.join(app.root_path, 'static/img/profile_user', existing_profile_img)
+                os.remove(existing_profile_img_path)
         current_user.username = form.username.data
         db.session.commit()
         flash(f'Your account has been updated!', 'success')
