@@ -106,7 +106,7 @@ def new_plant():
         db.session.commit()
         flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
         return redirect(url_for('plants'))
-    image_file = url_for('static', filename='img/plants/' + plant.id.image_file)
+    image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('new_plant.html', title='Add new plant', image_file=image_file, form=form)
 
 
