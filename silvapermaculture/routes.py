@@ -108,10 +108,11 @@ def new_plant():
         return redirect(url_for('plants'))
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('new_plant.html', title='Add new plant', image_file=image_file, form=form)
+
 #Go to specific plant with a specific ID
-@app.route("/plants/<int:plants_id>")
-def plant(plants_id):
-    plant = Plants.query.get_or_404(plants_id)
+@app.route("/plants/<int:plant_id>")
+def plant(plant_id):
+    plant = Plants.query.get_or_404(plant_id)
     return render_template('plant.html', title=plant.common_name, plant=plant)
 
 @app.route("/contact")
