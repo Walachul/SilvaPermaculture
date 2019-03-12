@@ -51,6 +51,18 @@
                               {{ form.short_description(class="form-control form-control-lg") }}
                               {% endif %}
                           </div>
+                          <div class="form-group">
+                              {% if form2.usage.errors %}
+                                {{ form2.usage(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.usage.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ form2.usage(class="form-control form-control-lg") }}
+                              {% endif %}
+                          </div>
 
                               {{ form.submit(class="btn float-right my-2", id="login-btn") }}
                     </form>

@@ -29,7 +29,7 @@ class Plants(db.Model):
     image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    medicinal=db.relationship('Medicinal_Use', backref='plant', lazy=True )
+    medicinal=db.relationship('Medicinal_Use', backref='plant_name', lazy=True )
     dna = db.relationship('Dynamic_Nutrient_Accumulated', backref='plant_dna', lazy=True)  #Dynamic_Nutrient_Accumulated
     nfn = db.relationship('Nitrogen_Fixers_Nursing', backref='plant_nfn', lazy=True)  #Nitrogen_Fixers_Nursing
     def __repr__(self):

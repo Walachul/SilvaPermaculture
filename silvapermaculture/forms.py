@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
-from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
+from silvapermaculture.models import User
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username', render_kw={"placeholder": "Username"},
@@ -46,6 +46,11 @@ class NewPlantForm(FlaskForm):
                                  validators=[DataRequired(), Length(min=2, max=80)])
     short_description = TextAreaField('Short Description', render_kw={"placeholder": "Please add a short description"},
                                       validators=[DataRequired()])
+    submit = SubmitField('Add plant')
+
+class MedicinalUseForm(FlaskForm):
+    usage = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
+                            validators=[DataRequired()])
     submit = SubmitField('Add plant')
 
 

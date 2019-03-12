@@ -13,6 +13,7 @@
                 <div class="my-2 p-2 border border-secondary">
                     <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                     <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
+                    <p class="text-left">Medicinal Use:{{ meds }}</p>
                 </div>
 
             </div>
