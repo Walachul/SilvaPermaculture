@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
+from wtforms.ext.sqlalchemy.fields import  QuerySelectMultipleField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
-from silvapermaculture.models import User
+from silvapermaculture.models import User, DNA,NFN
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username', render_kw={"placeholder": "Username"},
@@ -38,6 +39,12 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError('That username is taken. Please choose another one.')
+#Query for Dynamic Nutrient Accumulator Model
+def enabled_dna():
+    return DNA.query.all()
+#Query for Nitrogen Fixers Nursing Model
+def enabled_nfn():
+    return NFN.query.all()
 
 class NewPlantForm(FlaskForm):
     common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
@@ -46,11 +53,13 @@ class NewPlantForm(FlaskForm):
                                  validators=[DataRequired(), Length(min=2, max=80)])
     short_description = TextAreaField('Short Description', render_kw={"placeholder": "Please add a short description"},
                                       validators=[DataRequired()])
+    medicinal = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
+                            validators=[DataRequired()])
+    dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True)
+    nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True)
     submit = SubmitField('Add plant')
 
-class MedicinalUseForm(FlaskForm):
-    usage = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
-                            validators=[DataRequired()])
-    submit = SubmitField('Add plant')
+
+
 
 

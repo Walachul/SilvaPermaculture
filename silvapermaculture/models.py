@@ -26,50 +26,31 @@ class Plants(db.Model):
     common_name = db.Column(db.String(40), nullable=False)
     botanical_name = db.Column(db.String(80), unique=True, nullable=False)
     short_description = db.Column(db.Text, nullable=False)
+    medicinal = db.Column(db.Text, nullable=False)
     image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    medicinal=db.relationship('Medicinal_Use', backref='plant_name', lazy=True )
-    dna = db.relationship('Dynamic_Nutrient_Accumulated', backref='plant_dna', lazy=True)  #Dynamic_Nutrient_Accumulated
-    nfn = db.relationship('Nitrogen_Fixers_Nursing', backref='plant_nfn', lazy=True)  #Nitrogen_Fixers_Nursing
-    def __repr__(self):
-        return f"Plants('{self.common_name}', '{self.botanical_name}', '{self.short_description} ')"
 
-class Medicinal_Use(db.Model):
+    dna_id = db.Column(db.Integer, db.ForeignKey('DNA.id'))
+    dna = db.relationship('DNA', backref=db.backref('plant_dna', lazy='dynamic'))  # Dynamic_Nutrient_Accumulated
+    nfn_id = db.Column(db.Integer, db.ForeignKey('NFN.id'))
+    nfn = db.relationship('NFN', backref=db.backref('plant_nfn', lazy='dynamic'))  # Nitrogen_Fixers_Nursing
+
+    def __repr__(self):
+        return f"Plants('{self.common_name}', '{self.botanical_name}', '{self.short_description}'," \
+            f" '{self.medicinal}', '{self.dna}', '{self.nfn}' )"
+
+#Dynamic_Nutrient_Accumulated
+class DNA(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    usage = db.Column(db.Text, nullable=False)
-    plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'), nullable=False)
+    element = db.Column(db.String(15))
 
     def __repr__(self):
-        return f"Medicinal_Use('{self.usage}', '{self.plant_id}')"
-
-
-class Dynamic_Nutrient_Accumulated(db.Model):
+        return '[ {}]'.format(self.element)
+#Nitrogen_Fixers_Nursing
+class NFN(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    N = db.Column(db.Boolean)
-    P = db.Column(db.Boolean)
-    K = db.Column(db.Boolean)
-    Ca = db.Column(db.Boolean)
-    S = db.Column(db.Boolean)
-    Mg = db.Column(db.Boolean)
-    Mn = db.Column(db.Boolean)
-    Fe = db.Column(db.Boolean)
-    Cu = db.Column(db.Boolean)
-    Co = db.Column(db.Boolean)
-    Zn = db.Column(db.Boolean)
-    Si = db.Column(db.Boolean)
-    plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'), nullable=False)
+    plant_extra = db.Column(db.String(40))
 
     def __repr__(self):
-        return f"Dynamic_Nutrient_Accumulated('{self.N}', '{self.P}', '{self.K}', '{self.Ca}', '{self.S}'," \
-            f" '{self.Mg}', '{self.Mn}', '{self.Fe}', '{self.Cu}', '{self.Co}', '{self.Zn}', '{self.Si}', '{self.plant_id}')"
-
-class Nitrogen_Fixers_Nursing(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    check_nitrogen = db.Column(db.Boolean)
-    nursery = db.Column(db.Boolean)
-    comments = db.Column(db.String)
-    plant_id = db.Column(db.Integer, db.ForeignKey('plants.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Nitrogen_Fixers_Nursing('{self.check_nitrogen}', '{self.nursery}', '{self.plant_id}')"
+        return '[ {}]'.format(self.plant_extra)

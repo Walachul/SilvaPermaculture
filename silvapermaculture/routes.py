@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm, MedicinalUseForm
-from silvapermaculture.models import User, Plants, Medicinal_Use, Dynamic_Nutrient_Accumulated, Nitrogen_Fixers_Nursing
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm
+from silvapermaculture.models import User, Plants
 from flask_login import login_user, current_user, logout_user, login_required
 
 #Routes
@@ -95,32 +95,29 @@ def account():
                            image_file=image_file, form=form)
 
 
-#Router for users to add a plant to the database
+#Route for users to add a plant to the database
 @app.route("/plants/new/", methods=['GET', 'POST'])
 @login_required# User must be logged in to create a new plant
 def new_plant():
-
     form = NewPlantForm()
-    form2 = MedicinalUseForm()
-    if form.validate_on_submit() and form2.validate_on_submit():
+
+    if form.validate_on_submit():
         new_plant = Plants(common_name = form.common_name.data, botanical_name = form.botanical_name.data,
-                           short_description = form.short_description.data, author=current_user)
-        if form2.usage.data is not None:
-            med_usage = Medicinal_Use(usage=form2.data, plant_name=new_plant)
+                           short_description = form.short_description.data, medicinal=form.medicinal.data,
+                           dna=form.dna.data, nfn=form.nfn.data, author=current_user)
         db.session.add(new_plant)
         db.session.commit()
         flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
         return redirect(url_for('plants'))
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('new_plant.html', title='Add new plant',
-                           image_file=image_file, form=form, form2=form2 )
+                           image_file=image_file, form=form)
 
 #Go to specific plant with a specific ID
 @app.route("/plants/<int:plant_id>")
 def plant(plant_id):
     plant = Plants.query.get_or_404(plant_id)
-    medicinal_usage = plant.medicinal
-    return render_template('plant.html', title=plant.common_name, plant=plant, meds=medicinal_usage)
+    return render_template('plant.html', title=plant.common_name, plant=plant)
 
 @app.route("/contact")
 def contact():
