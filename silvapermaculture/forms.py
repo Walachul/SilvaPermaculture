@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms.ext.sqlalchemy.fields import  QuerySelectMultipleField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms.ext.sqlalchemy.fields import  QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from silvapermaculture.models import User, DNA,NFN
 
@@ -41,10 +41,10 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That username is taken. Please choose another one.')
 #Query for Dynamic Nutrient Accumulator Model
 def enabled_dna():
-    return DNA.query.all()
+    return DNA.query
 #Query for Nitrogen Fixers Nursing Model
 def enabled_nfn():
-    return NFN.query.all()
+    return NFN.query
 
 class NewPlantForm(FlaskForm):
     common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
@@ -55,8 +55,8 @@ class NewPlantForm(FlaskForm):
                                       validators=[DataRequired()])
     medicinal = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
                             validators=[DataRequired()])
-    dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True)
-    nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True)
+    dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True, get_label='element')
+    nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
     submit = SubmitField('Add plant')
 
 

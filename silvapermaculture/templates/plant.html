@@ -14,8 +14,12 @@
                     <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                     <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
                     <p class="text-left">Medicinal Use:{{ plant.medicinal }}</p>
-                    <p class="text-left">DNA:{{ plant.dna }}</p>
-                    <p class="text-left">NFN:{{ plant.nfn }}</p>
+
+                    <p class="text-left">Nutrients accumulated:{{plant.dna }}</p>
+
+
+                    <p class="text-left">Nurse plant / Nitrogen Fixator:{{ plant.nfn }}</p>
+
                 </div>
 
             </div>

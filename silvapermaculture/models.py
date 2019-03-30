@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):  #How is the objected printed when we print it out. Dunder/Magic method.
         return f"User('{self.username}', '{self.image_file}')"
+
 #Plants Table
 class Plants(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,7 +31,6 @@ class Plants(db.Model):
     image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
     dna_id = db.Column(db.Integer, db.ForeignKey('DNA.id'))
     dna = db.relationship('DNA', backref=db.backref('plant_dna', lazy='dynamic'))  # Dynamic_Nutrient_Accumulated
     nfn_id = db.Column(db.Integer, db.ForeignKey('NFN.id'))
@@ -46,11 +46,11 @@ class DNA(db.Model):
     element = db.Column(db.String(15))
 
     def __repr__(self):
-        return '[ {}]'.format(self.element)
+        return '{}'.format(self.element)
 #Nitrogen_Fixers_Nursing
 class NFN(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     plant_extra = db.Column(db.String(40))
 
     def __repr__(self):
-        return '[ {}]'.format(self.plant_extra)
+        return '{}'.format(self.plant_extra)

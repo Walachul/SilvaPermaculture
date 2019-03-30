@@ -104,7 +104,12 @@ def new_plant():
     if form.validate_on_submit():
         new_plant = Plants(common_name = form.common_name.data, botanical_name = form.botanical_name.data,
                            short_description = form.short_description.data, medicinal=form.medicinal.data,
-                           dna=form.dna.data, nfn=form.nfn.data, author=current_user)
+                           author=current_user)
+        for dna_element in form.dna.data:
+            new_plant.dna = dna_element
+        for nfn_element in form.nfn.data:
+            new_plant.nfn = nfn_element
+
         db.session.add(new_plant)
         db.session.commit()
         flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
