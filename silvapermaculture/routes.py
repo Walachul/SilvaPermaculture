@@ -134,7 +134,7 @@ def save_plant_picture(form_plantPic):
     _, f_ext = os.path.splitext(form_plantPic.filename)
     picture_fn = random_hex_image + f_ext
     picture_path = os.path.join(app.root_path, 'static/img/plants', picture_fn) #Saving the new plantPic to the specified folder.
-    scale_image = (250, 180)
+    scale_image = (250, 125)
     img_new = Image.open(form_plantPic)
     img_new.thumbnail(scale_image)
     img_new.save(picture_path)
@@ -175,6 +175,19 @@ def update_plant(plant_id):
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
                            form=form, header ="Update a plant")
+
+#Delete a plant with a specific ID
+@app.route("/plants/<int:plant_id>/delete", methods=['POST'])
+@login_required# User must be logged in to create a new plant
+def delete_plant(plant_id):
+    plant = Plants.query.get_or_404(plant_id)
+    # Check to see if the user who wants to update an existing plant is the actual logged user
+    if plant.author != current_user:
+        abort(403)
+    db.session.delete(plant)
+    db.session.commit()
+    flash('The selected plant has been deleted!', 'success')
+    return redirect(url_for('plants'))
 
 @app.route("/contact")
 def contact():
