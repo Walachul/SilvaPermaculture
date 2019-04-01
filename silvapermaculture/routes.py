@@ -172,9 +172,11 @@ def update_plant(plant_id):
         form.medicinal.data = plant.medicinal
         form.dna.data = plant.dna
         form.nfn.data = plant.nfn
+
+    back_to_plant = url_for('plant', plant_id=plant.id)
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
-                           form=form, header ="Update a plant")
+                           form=form, header ="Update a plant" , return_to_page=back_to_plant)
 
 #Delete a plant with a specific ID
 @app.route("/plants/<int:plant_id>/delete", methods=['POST'])
