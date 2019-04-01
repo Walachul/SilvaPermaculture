@@ -10,15 +10,20 @@
             <div class="col-12 col-lg-9">
                 <h5 class="my-2 text-left">Plant added by <a href="#">{{ plant.author.username }}</a>
                     on {{ plant.date_added.strftime('%d-%m-%Y') }}</h5>
+            </div>
+            {% if plant.author == current_user  %}
+            <div class="col-12 col-lg-3">
+                <a class="btn btn-secondary" href="{{ url_for('update_plant', plant_id=plant.id) }}">Edit</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <div class="my-2 p-2 border border-secondary">
                     <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                     <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
                     <p class="text-left">Medicinal Use:{{ plant.medicinal }}</p>
-
-
                     <p class="text-left">Nutrients accumulated:{{plant.dna }}</p>
-
-
                     <p class="text-left">Nurse plant / Nitrogen Fixator:{{ plant.nfn }}</p>
 
                 </div>

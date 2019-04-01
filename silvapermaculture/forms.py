@@ -39,10 +39,10 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError('That username is taken. Please choose another one.')
-#Query for Dynamic Nutrient Accumulator Model
+#Query for Dynamic Nutrient Accumulator Model for QuerySelectMultipleField
 def enabled_dna():
     return DNA.query
-#Query for Nitrogen Fixers Nursing Model
+#Query for Nitrogen Fixers Nursing Model for QuerySelectMultipleField
 def enabled_nfn():
     return NFN.query
 
@@ -57,7 +57,22 @@ class NewPlantForm(FlaskForm):
                             validators=[DataRequired()])
     dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True, get_label='element')
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
+
     submit = SubmitField('Add plant')
+
+class UpdatePlantForm(FlaskForm):
+    common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
+                              validators=[DataRequired(), Length(min=2, max=40)])
+    botanical_name = StringField('Botanical Name', render_kw={"placeholder": "Botanical name"},
+                                 validators=[DataRequired(), Length(min=2, max=80)])
+    short_description = TextAreaField('Short Description', render_kw={"placeholder": "Please add a short description"},
+                                      validators=[DataRequired()])
+    medicinal = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
+                            validators=[DataRequired()])
+    plantPic = FileField('Update Plant Picture', validators=[FileAllowed(['jpg', 'png'])])
+    dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True, get_label='element')
+    nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
+    submit = SubmitField('Update')
 
 
 

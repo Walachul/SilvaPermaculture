@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm, UpdatePlantForm
 from silvapermaculture.models import User, Plants
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -124,6 +124,21 @@ def new_plant():
 def plant(plant_id):
     plant = Plants.query.get_or_404(plant_id)
     return render_template('plant.html', title=plant.common_name, plant=plant)
+#Function for updating default plant, scale it and use hex
+def save_plant_picture(form_plantPic):
+    """
+    Change img filename to be a random hex, instead of keeping the original name of the file,
+    in order to avoid having files with the same name.
+    """
+    random_hex_image = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_plantPic.filename)
+    picture_fn = random_hex_image + f_ext
+    picture_path = os.path.join(app.root_path, 'static/img/plants', picture_fn) #Saving the new plantPic to the specified folder.
+    scale_image = (250, 180)
+    img_new = Image.open(form_plantPic)
+    img_new.thumbnail(scale_image)
+    img_new.save(picture_path)
+    return picture_fn
 
 #Edit a plant with a specific ID
 @app.route("/plants/<int:plant_id>/edit", methods=['GET', 'POST'])
@@ -133,9 +148,13 @@ def update_plant(plant_id):
     #Check to see if the user who wants to update an existing plant is the actual logged user
     if plant.author != current_user:
         abort(403)
-    form = NewPlantForm()
+    form = UpdatePlantForm()
     #Update plant with new data from form fields
     if form.validate_on_submit():
+        if form.plantPic.data:
+            picture_file = save_plant_picture(form.plantPic.data)
+            plant.image_file = picture_file
+
         plant.common_name = form.common_name.data
         plant.botanical_name = form.botanical_name.data
         plant.short_description = form.short_description.data
@@ -154,7 +173,7 @@ def update_plant(plant_id):
         form.dna.data = plant.dna
         form.nfn.data = plant.nfn
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
-    return render_template('new_plant.html', title='Update plant', image_file=image_file,
+    return render_template('update_plant.html', title='Update plant', image_file=image_file,
                            form=form, header ="Update a plant")
 
 @app.route("/contact")
