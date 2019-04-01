@@ -106,9 +106,10 @@ def new_plant():
                            short_description = form.short_description.data, medicinal=form.medicinal.data,
                            author=current_user)
         for dna_element in form.dna.data:
-            new_plant.dna = dna_element
+            new_plant.dna.append(dna_element)
+
         for nfn_element in form.nfn.data:
-            new_plant.nfn = nfn_element
+            new_plant.nfn.append(nfn_element)
 
         db.session.add(new_plant)
         db.session.commit()

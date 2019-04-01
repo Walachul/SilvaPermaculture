@@ -21,6 +21,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):  #How is the objected printed when we print it out. Dunder/Magic method.
         return f"User('{self.username}', '{self.image_file}')"
 
+plants_dna_table = db.Table(
+    'plants_dna',
+    db.Column('plants_id', db.Integer, db.ForeignKey('plants.id'), nullable=False),
+    db.Column('dna_id', db.Integer, db.ForeignKey('DNA.id'), nullable=False),
+    db.UniqueConstraint('plants_id', 'dna_id')
+)
+plants_nfn_table = db.Table(
+    'plants_nfn',
+    db.Column('plants_id', db.Integer, db.ForeignKey('plants.id'), nullable=False),
+    db.Column('nfn_id', db.Integer, db.ForeignKey('NFN.id'), nullable=False),
+    db.UniqueConstraint('plants_id', 'nfn_id')
+)
 #Plants Table
 class Plants(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,10 +43,8 @@ class Plants(db.Model):
     image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    dna_id = db.Column(db.Integer, db.ForeignKey('DNA.id'))
-    dna = db.relationship('DNA', backref=db.backref('plant_dna', lazy='dynamic'))  # Dynamic_Nutrient_Accumulated
-    nfn_id = db.Column(db.Integer, db.ForeignKey('NFN.id'))
-    nfn = db.relationship('NFN', backref=db.backref('plant_nfn', lazy='dynamic'))  # Nitrogen_Fixers_Nursing
+    dna = db.relationship('DNA', secondary = plants_dna_table)  # Dynamic_Nutrient_Accumulated
+    nfn = db.relationship('NFN', secondary = plants_nfn_table)  # Nitrogen_Fixers_Nursing
 
     def __repr__(self):
         return f"Plants('{self.common_name}', '{self.botanical_name}', '{self.short_description}'," \
