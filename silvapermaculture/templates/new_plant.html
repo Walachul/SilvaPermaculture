@@ -12,7 +12,10 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-6 mx-auto my-5" id="login">
-                    <img class="img-fluid" src="{{ image_file }}"  alt="Default plant image"/>
+                    <div class="text-center my-3 ">
+                         <img class="img-fluid rounded shadow" src="{{ image_file }}"  alt="Default plant image"/>
+                    </div>
+
                     <form id="registration" class="my-4" method="POST" action="" enctype="multipart/form-data">
                         {{ form.hidden_tag() }} <!-- CSRF token -->
                           <div class="form-group">
@@ -64,11 +67,11 @@
                               {% endif %}
                           </div>
                           <div class="form-group">
-                            {{ form.dna(class="custom-select", multiple=True) }}
+                            {{ form.dna(class_="selectpicker", multiple=True) }}
 
                           </div>
                            <div class="form-group">
-                               {{ form.nfn(class="custom-select", multiple=True)}}
+                               {{ form.nfn(class_="selectpicker", multiple=True) }}
                            </div>
 
                               {{ form.submit(class="btn float-right my-2", id="login-btn") }}

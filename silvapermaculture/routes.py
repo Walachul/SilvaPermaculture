@@ -163,6 +163,7 @@ def update_plant(plant_id):
         plant.nfn = form.nfn.data
         db.session.commit()
         flash(f'You have successfully updated the plant !', 'success')
+
         return redirect(url_for('plant', plant_id=plant.id))
     elif request.method == 'GET':
         #Form is filled with the current data for a plant
@@ -172,8 +173,9 @@ def update_plant(plant_id):
         form.medicinal.data = plant.medicinal
         form.dna.data = plant.dna
         form.nfn.data = plant.nfn
-
+    #User can go back to the plant he wanted to update, without the action of updating.
     back_to_plant = url_for('plant', plant_id=plant.id)
+
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
                            form=form, header ="Update a plant" , return_to_page=back_to_plant)
