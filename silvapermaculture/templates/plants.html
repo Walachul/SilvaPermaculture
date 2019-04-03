@@ -16,13 +16,14 @@
             <div class="col-12 col-lg-3 ">
                 <h3 class="my-2 text-center">Search for a plant</h3>
                 <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a common name" aria-label="Search">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Enter a botanical name" aria-label="Search">
-                    <h5 class="h5 my-2">Search  by Nitrogen Fixating Plants</h5>
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search for nitrogen" aria-label="Search">
-                     <h5 class="h5 my-2">Search  by Dynamic Nutrient Accumulators</h5>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search plants DNA" aria-label="Search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    {{ search.search_common(class="form-control") }}
+                    {{ search.search_botanical(class="form-control") }}
+
+                    <h5 class="h5 my-2">{{ search.filter_dna.label}}</h5>
+                    {{ search.filter_dna(class="form-control") }}
+                     <h5 class="h5 my-2">{{ search.filter_nfn.label}}</h5>
+                    {{ search.filter_nfn(class="form-control") }}
+                    {{ search.submit(class="btn float-right my-2") }}
                 </form>
             </div>
             <div class="col-12 col-lg-9">

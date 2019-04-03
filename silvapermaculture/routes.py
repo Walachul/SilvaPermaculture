@@ -3,8 +3,9 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from silvapermaculture import app, db, bcrypt
-from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm, NewPlantForm, UpdatePlantForm
-from silvapermaculture.models import User, Plants
+from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm,\
+    NewPlantForm, UpdatePlantForm, SearchForm
+from silvapermaculture.models import User, Plants, DNA, NFN
 from flask_login import login_user, current_user, logout_user, login_required
 
 #Routes
@@ -15,7 +16,8 @@ def index():
 @app.route("/plants")
 def plants():
     plants = Plants.query.all()
-    return render_template('plants.html', title= 'Plants Database', plants=plants)
+    search = SearchForm()
+    return render_template('plants.html', title= 'Plants Database', plants=plants, search=search)
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')
@@ -193,6 +195,17 @@ def delete_plant(plant_id):
     flash('The selected plant has been deleted!', 'success')
     return redirect(url_for('plants'))
 
+# #Implementing Search and filters
+@app.route("/plants", methods=["GET", "POST"])
+def search_db():
+    search = SearchForm()
+    plant_common = search.search_common.data
+    plant_botanical = search.search_botanical.data
+    filter_dna = db.session.query(Plants,DNA).join('dna').filter_by(element=search.filter_dna.data).all()
+    filter_nfn = db.session.query(Plants,NFN).join('nfn').filter_by(plant_extra=search.filter_nfn.data).all()
+
+    return render_template('plants.html', search=search, plant_common=plant_common,
+                           plant_botanical=plant_botanical, filter_dna=filter_dna, filter_nfn=filter_nfn)
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')
