@@ -5,7 +5,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.ext.sqlalchemy.fields import  QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
-from silvapermaculture.models import User, DNA,NFN
+from silvapermaculture.models import User, Plants, DNA,NFN
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username', render_kw={"placeholder": "Username"},
@@ -66,7 +66,12 @@ class NewPlantForm(FlaskForm):
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
     plantPic = FileField('Update Plant Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add plant')
-
+    #Check to see if botanical name exists
+    def validate_botanical_name(self, botanical_name):
+        if botanical_name.data != botanical_name:
+            botanical_name = Plants.query.filter_by(botanical_name=botanical_name.data).first()
+            if botanical_name:
+                raise ValidationError('That botanical name is taken. Please choose another one.')
 class UpdatePlantForm(FlaskForm):
     common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
                               validators=[DataRequired(), Length(min=2, max=40)])
@@ -87,6 +92,12 @@ class UpdatePlantForm(FlaskForm):
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
     submit = SubmitField('Update')
 
+    # Check to see if botanical name exists
+    def validate_botanical_name(self, botanical_name):
+        if botanical_name.data != botanical_name:
+            botanical_name = Plants.query.filter_by(botanical_name=botanical_name.data).first()
+            if botanical_name:
+                raise ValidationError('That botanical name is taken. Please choose another one.')
 class SearchForm(FlaskForm):
     q = StringField(('Search plant'), validators=[DataRequired(),Length(max=60)])
 

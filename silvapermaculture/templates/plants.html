@@ -41,8 +41,9 @@
                     <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                     <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
                     <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h4>
-                    <p class="text-left small">Plant added by <a href="#">{{ plant.author.username }}</a> on {{ plant.date_added.strftime('%d-%m-%Y') }} </p>
-                    <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
+                       <p class="text-left small"><em>Plant added by <a href="#">{{ plant.author.username }}</a> on {{ plant.date_added.strftime('%d-%m-%Y') }} </em></p>
+                    <h3>A brief description</h3>
+                    <p class="text-left"> <em>{{ plant.short_description }}</em> </p>
                     <a class="btn btn-info" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
                    </div>
 
