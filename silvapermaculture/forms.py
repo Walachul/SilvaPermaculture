@@ -1,3 +1,4 @@
+from flask import request
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
@@ -75,12 +76,16 @@ class UpdatePlantForm(FlaskForm):
     submit = SubmitField('Update')
 
 class SearchForm(FlaskForm):
-    search_common = StringField('Search', render_kw={"placeholder": "Common name"})
-    search_botanical = StringField('Botanical Name', render_kw={"placeholder": "Botanical name"})
-    filter_dna = QuerySelectMultipleField('Filter by nutrient',query_factory=enabled_dna,allow_blank=True, get_label='element')
-    filter_nfn = QuerySelectMultipleField('Filter by properties ', query_factory=enabled_nfn, allow_blank=True,
-                                   get_label='plant_extra')
+    q = StringField(('Search plant by common name or botanical name'), validators=[DataRequired(),Length(max=60)])
+
     submit = SubmitField('Search')
 
+#Filtered Search Form for Dynamic Nutrients Accumulators
+class SearchFormN(FlaskForm):
 
+    dna = QuerySelectMultipleField('Select Element', query_factory=enabled_dna, allow_blank=True, get_label='element')
+    nfn = QuerySelectMultipleField('Select Property', query_factory=enabled_nfn, allow_blank=True,
+                                   get_label='plant_extra')
+
+    submit = SubmitField('Search')
 

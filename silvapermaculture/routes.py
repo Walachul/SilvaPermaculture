@@ -4,7 +4,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm,\
-    NewPlantForm, UpdatePlantForm, SearchForm
+    NewPlantForm, UpdatePlantForm, SearchForm, SearchFormN
 from silvapermaculture.models import User, Plants, DNA, NFN
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -17,7 +17,9 @@ def index():
 def plants():
     plants = Plants.query.all()
     search = SearchForm()
-    return render_template('plants.html', title= 'Plants Database', plants=plants, search=search)
+    searchn = SearchFormN()
+
+    return render_template('plants.html', title= 'Plants Database', plants=plants, search=search, searchn=searchn)
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')
@@ -193,17 +195,32 @@ def delete_plant(plant_id):
     flash('The selected plant has been deleted!', 'success')
     return redirect(url_for('plants'))
 
-# #Implementing Search and filters
-@app.route("/plants", methods=["GET", "POST"])
-def search_db():
+#Implementing Search
+@app.route("/search", methods=['GET', 'POST'])
+def search():
     search = SearchForm()
-    plant_common = search.search_common.data
-    plant_botanical = search.search_botanical.data
-    filter_dna = db.session.query(Plants,DNA).join('dna').filter_by(element=search.filter_dna.data).all()
-    filter_nfn = db.session.query(Plants,NFN).join('nfn').filter_by(plant_extra=search.filter_nfn.data).all()
+    if not search.validate():
+        return redirect(url_for('plants'))
+    q = search.q.data
+    if request.method == 'GET':
+        plant = Plants.query.filter_by(common_name=q).first()
+        return render_template('results.html', title="Search Results", search=search, plant=plant)
 
-    return render_template('plants.html', search=search, plant_common=plant_common,
-                           plant_botanical=plant_botanical, filter_dna=filter_dna, filter_nfn=filter_nfn)
+
+#Search based on filters
+@app.route("/searchn")
+def searchn():
+    searchn = SearchFormN()
+    if not searchn.validate():
+        return redirect(url_for('plants'))
+    if searchn.dna.data:
+        for e in searchn.dna.data:
+            filterQuery = Plants.query.join('dna').filter_by(element=str(e)).all()
+    elif searchn.nfn.data:
+        for d in searchn.nfn.data:
+            filterQuery = Plants.query.join('nfn').filter_by(plant_extra=str(d)).all()
+    total=len(filterQuery)
+    return render_template('search_filter.html', title="Filtered search results", searchn=searchn, filterQuery=filterQuery, total=total)
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')
