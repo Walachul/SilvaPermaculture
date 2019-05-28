@@ -35,6 +35,7 @@ plants_nfn_table = db.Table(
 )
 #Plants Table
 class Plants(db.Model):
+    __searchit__ = ['common_name', 'botanical_name', 'medicinal', 'region']
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String(40), nullable=False)
     botanical_name = db.Column(db.String(80), unique=True, nullable=False)
@@ -55,6 +56,7 @@ class Plants(db.Model):
 
 #Dynamic_Nutrient_Accumulated
 class DNA(db.Model):
+    __searchit__ = ['element']
     id = db.Column(db.Integer, primary_key=True)
     element = db.Column(db.String(15))
 
@@ -62,6 +64,7 @@ class DNA(db.Model):
         return '{}'.format(self.element)
 #Nitrogen_Fixers_Nursing
 class NFN(db.Model):
+    __searchit__ = ['plant_extra']
     id = db.Column(db.Integer, primary_key=True)
     plant_extra = db.Column(db.String(40))
 
