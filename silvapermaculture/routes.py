@@ -116,13 +116,13 @@ def save_plant_picture(form_plantPic):
 @login_required# User must be logged in to create a new plant
 def new_plant():
     form = NewPlantForm()
-
+    #Keep the default image of the plant or change it.
     if form.validate_on_submit():
-        if form.plantPic.data:
+        if form.plantPic.data is None:
+            picture_file = "default_plant_pic.jpg"
+        else:
             picture_file = save_plant_picture(form.plantPic.data)
             plant.image_file = picture_file
-        else:
-            plant.image_file = image_file
         new_plant = Plants(common_name = form.common_name.data, botanical_name = form.botanical_name.data,
                            short_description = form.short_description.data, medicinal=form.medicinal.data, habitats=form.habitats.data,
                            other_uses=form.other_uses.data, region=form.region.data, image_file=picture_file, author=current_user)
@@ -140,7 +140,7 @@ def new_plant():
     return render_template('new_plant.html', title='Add new plant',
                            image_file=image_file, form=form, header="Add a new plant")
 
-#Go to specific plant with a specific ID
+#Go to specific plant with a specific ID for more information
 @app.route("/plants/<int:plant_id>")
 def plant(plant_id):
     plant = Plants.query.get_or_404(plant_id)
@@ -189,7 +189,7 @@ def update_plant(plant_id):
     #User can go back to the plant he wanted to update, without the action of updating.
     back_to_plant = url_for('plant', plant_id=plant.id)
 
-    image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
+    image_file = url_for('static', filename='img/plants/' + plant.image_file)
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
                            form=form, header ="Update a plant" , return_to_page=back_to_plant)
 
