@@ -97,6 +97,7 @@ class SearchForm(FlaskForm):
     q = StringField(('Search plant'), validators=[DataRequired(),Length(max=60)])
 
     def __init__(self, *args, **kwargs):
+        #The formdata arg determines from where Flask forms gets submissions.
         if 'formdata' not in kwargs:
             kwargs['formdata'] = request.args
         if 'csrf_enabled' not in kwargs:

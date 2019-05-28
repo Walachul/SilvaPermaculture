@@ -8,7 +8,8 @@
 
         <div class="row">
             <div class="col-12 col-lg-9">
-
+                    {% for plant in plants %}
+                    <span>Search results : <strong>{{ total }}</strong></span>
                    <div class="my-2 p-2 border border-secondary">
                     <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                     <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
@@ -26,12 +27,28 @@
                     <ul>
                     {% for nfnElement in plant.nfn %}
                     <li>{{ nfnElement }}</li>
-
+                    {% endfor %}
                      </ul>
                    </div>
 
-                {% endfor %}
 
+                {% endfor %}
+            <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span>
+                    {{ ('Previous results') }}
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    {{ ('Next results') }}
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
             </div>
         </div>
 
