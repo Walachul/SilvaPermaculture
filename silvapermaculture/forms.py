@@ -56,9 +56,15 @@ class NewPlantForm(FlaskForm):
                                       validators=[DataRequired()])
     medicinal = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
                             validators=[DataRequired()])
+    other_uses = TextAreaField('Other uses', render_kw={"placeholder": "Other uses. Example: It is tolerant"
+                                                                       " of being cut several times a year and"
+                                                                       " can be used to provide 'instant compost' for crops."})
+    habitats = TextAreaField("Habitats", render_kw={"placeholder": "Please write a habitat."
+                                                                   " Example: Shady spots, Partial/Full Sun."})
+    region = TextAreaField("Region(s)", render_kw={"placeholder": "Please add a region."})
     dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True, get_label='element')
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
-
+    plantPic = FileField('Update Plant Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add plant')
 
 class UpdatePlantForm(FlaskForm):
@@ -70,13 +76,19 @@ class UpdatePlantForm(FlaskForm):
                                       validators=[DataRequired()])
     medicinal = TextAreaField('Medicinal Use', render_kw={"placeholder": "Medicinal use"},
                             validators=[DataRequired()])
+    other_uses = TextAreaField('Other uses', render_kw={"placeholder": "Example:The plant grows very quickly, "
+                                                                       "producing a lot of bulk. It is tolerant"
+                                                                       " of being cut several times a year and"
+                                                                       " can be used to provide 'instant compost' for crops."})
+    habitats = TextAreaField("Habitats", render_kw={"placeholder": "Example: Shady spots, Partial/Full Sun."})
+    region = TextAreaField("Region(s)", render_kw={"placeholder": "Please add a region."})
     plantPic = FileField('Update Plant Picture', validators=[FileAllowed(['jpg', 'png'])])
     dna = QuerySelectMultipleField('Select Element',query_factory=enabled_dna,allow_blank=True, get_label='element')
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
     submit = SubmitField('Update')
 
 class SearchForm(FlaskForm):
-    q = StringField(('Search plant by common name or botanical name'), validators=[DataRequired(),Length(max=60)])
+    q = StringField(('Search plant'), validators=[DataRequired(),Length(max=60)])
 
     submit = SubmitField('Search')
 

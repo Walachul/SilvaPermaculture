@@ -95,7 +95,21 @@ def account():
     image_file = url_for('static', filename='img/profile_user/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
-
+#Function for updating default plant, scale it and use hex
+def save_plant_picture(form_plantPic):
+    """
+    Change img filename to be a random hex, instead of keeping the original name of the file,
+    in order to avoid having files with the same name.
+    """
+    random_hex_image = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_plantPic.filename)
+    picture_fn = random_hex_image + f_ext
+    picture_path = os.path.join(app.root_path, 'static/img/plants', picture_fn) #Saving the new plantPic to the specified folder.
+    scale_image = (250, 125)
+    img_new = Image.open(form_plantPic)
+    img_new.thumbnail(scale_image)
+    img_new.save(picture_path)
+    return picture_fn
 
 #Route for users to add a plant to the database
 @app.route("/plants/new/", methods=['GET', 'POST'])
@@ -104,9 +118,14 @@ def new_plant():
     form = NewPlantForm()
 
     if form.validate_on_submit():
+        if form.plantPic.data:
+            picture_file = save_plant_picture(form.plantPic.data)
+            plant.image_file = picture_file
+        else:
+            plant.image_file = image_file
         new_plant = Plants(common_name = form.common_name.data, botanical_name = form.botanical_name.data,
-                           short_description = form.short_description.data, medicinal=form.medicinal.data,
-                           author=current_user)
+                           short_description = form.short_description.data, medicinal=form.medicinal.data, habitats=form.habitats.data,
+                           other_uses=form.other_uses.data, region=form.region.data, image_file=picture_file, author=current_user)
         for dna_element in form.dna.data:
             new_plant.dna.append(dna_element)
 
@@ -126,21 +145,7 @@ def new_plant():
 def plant(plant_id):
     plant = Plants.query.get_or_404(plant_id)
     return render_template('plant.html', title=plant.common_name, plant=plant)
-#Function for updating default plant, scale it and use hex
-def save_plant_picture(form_plantPic):
-    """
-    Change img filename to be a random hex, instead of keeping the original name of the file,
-    in order to avoid having files with the same name.
-    """
-    random_hex_image = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_plantPic.filename)
-    picture_fn = random_hex_image + f_ext
-    picture_path = os.path.join(app.root_path, 'static/img/plants', picture_fn) #Saving the new plantPic to the specified folder.
-    scale_image = (250, 125)
-    img_new = Image.open(form_plantPic)
-    img_new.thumbnail(scale_image)
-    img_new.save(picture_path)
-    return picture_fn
+
 
 #Edit a plant with a specific ID
 @app.route("/plants/<int:plant_id>/edit", methods=['GET', 'POST'])
@@ -161,6 +166,9 @@ def update_plant(plant_id):
         plant.botanical_name = form.botanical_name.data
         plant.short_description = form.short_description.data
         plant.medicinal = form.medicinal.data
+        plant.habitats = form.habitats.data
+        plant.other_uses = form.other_uses.data
+        plant.region = form.region.data
         plant.dna = form.dna.data
         plant.nfn = form.nfn.data
         db.session.commit()
@@ -173,6 +181,9 @@ def update_plant(plant_id):
         form.botanical_name.data = plant.botanical_name
         form.short_description.data = plant.short_description
         form.medicinal.data = plant.medicinal
+        form.habitats.data = plant.habitats
+        form.other_uses.data = plant.other_uses
+        form.region.data = plant.region
         form.dna.data = plant.dna
         form.nfn.data = plant.nfn
     #User can go back to the plant he wanted to update, without the action of updating.
@@ -198,14 +209,13 @@ def delete_plant(plant_id):
 #Implementing Search
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    search = SearchForm()
+    search = SearchForm(request.args)
     if not search.validate():
         return redirect(url_for('plants'))
-    q = search.q.data
-    if request.method == 'GET':
-        plant = Plants.query.filter_by(common_name=q).first()
-        return render_template('results.html', title="Search Results", search=search, plant=plant)
-
+    userInput = search.q.data
+    #plant = Plants.query.filter_by(common_name=q).first()
+    print(userInput)
+    return render_template('results.html', title="Search Results", search=search, plant=plant )
 
 #Search based on filters
 @app.route("/searchn")
