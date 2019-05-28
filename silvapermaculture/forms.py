@@ -96,6 +96,12 @@ class UpdatePlantForm(FlaskForm):
 class SearchForm(FlaskForm):
     q = StringField(('Search plant'), validators=[DataRequired(),Length(max=60)])
 
+    def __init__(self, *args, **kwargs):
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'csrf_enabled' not in kwargs:
+            kwargs['csrf_enabled'] = False
+        super(SearchForm, self).__init__(*args, **kwargs)
     submit = SubmitField('Search')
 
 #Filtered Search Form for Dynamic Nutrients Accumulators
@@ -104,6 +110,11 @@ class SearchFormN(FlaskForm):
     dna = QuerySelectMultipleField('Select Element', query_factory=enabled_dna, allow_blank=True, get_label='element')
     nfn = QuerySelectMultipleField('Select Property', query_factory=enabled_nfn, allow_blank=True,
                                    get_label='plant_extra')
-
+    def __init__(self, *args, **kwargs):
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'csrf_enabled' not in kwargs:
+            kwargs['csrf_enabled'] = False
+        super(SearchFormN, self).__init__(*args, **kwargs)
     submit = SubmitField('Search')
 
