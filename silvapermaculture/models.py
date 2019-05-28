@@ -1,6 +1,7 @@
 from datetime import datetime
 from silvapermaculture import db, login_manager
 from flask_login import UserMixin
+from silvapermaculture.search import add_element_index, remove_element_from_index, search_index
 
 
 @login_manager.user_loader
@@ -33,8 +34,53 @@ plants_nfn_table = db.Table(
     db.Column('nfn_id', db.Integer, db.ForeignKey('NFN.id'), nullable=False),
     db.UniqueConstraint('plants_id', 'nfn_id')
 )
+
+#Mixin class that creates bondage between Elasticsearch and SQLAlchemy.
+# Updates on the SQLAlchemy session are applied also to Elasticsearch index, when attached as subclass to a model.
+class SearchitMixin(object):
+    #search function that replaces object ID from the query with objects.
+    @classmethod
+    def search(cls, expression, page, per_page):
+        ids, total = search_index(cls.__tablename__, expression, page, per_page)
+        if total == 0:
+            return cls.query.filter_by(id=0), 0
+        when = []
+        for i in range(len(ids)):
+            when.append((ids[i],i))
+        #case statement to ensure that the results from the database come in same order as ids are given.
+        return cls.query.filter(cls.id.in_(ids)).order_by(
+            db.case(when, value=cls.id)), total
+    #Corresponds to SQLAlchemy event before committing the session and save the objects.
+    @classmethod
+    def before_commit(cls,session):
+        session._changes={
+            'add': list(session.new),
+            'update': list(session.dirty),
+            'delete': list(session.deleted)
+        }
+    #The session was committed and now we can iterate over the saved objects with Elasticsearch
+    @classmethod
+    def after_commit(cls,session):
+        for obj in session._changes['add']:
+            if isinstance(obj, SearchitMixin):
+                add_element_index(obj.__tablename__, obj)
+        for obj in session._changes['update']:
+            if isinstance(obj, SearchitMixin):
+                add_element_index(obj.__tablename__, obj)
+        for obj in session._changes['delete']:
+            if isinstance(obj, SearchitMixin):
+                remove_element_from_index(obj.__tablename__, obj)
+        session._changes = None
+    #Helper to refresh an elasticsearch index with all the data from the SQLite database.
+    @classmethod
+    def reindex(cls):
+        for obj in cls.query:
+            add_element_index(cls.__tablename__, obj)
+db.event.listen(db.session, 'before_commit', SearchitMixin.before_commit)
+db.event.listen(db.session, 'after_commit', SearchitMixin.after_commit)
+
 #Plants Table
-class Plants(db.Model):
+class Plants(SearchitMixin, db.Model):
     __searchit__ = ['common_name', 'botanical_name', 'medicinal', 'region']
     id = db.Column(db.Integer, primary_key=True)
     common_name = db.Column(db.String(40), nullable=False)
@@ -55,7 +101,7 @@ class Plants(db.Model):
             f" '{self.medicinal}', '{self.dna}', '{self.nfn}' )"
 
 #Dynamic_Nutrient_Accumulated
-class DNA(db.Model):
+class DNA(SearchitMixin, db.Model):
     __searchit__ = ['element']
     id = db.Column(db.Integer, primary_key=True)
     element = db.Column(db.String(15))
@@ -63,7 +109,7 @@ class DNA(db.Model):
     def __repr__(self):
         return '{}'.format(self.element)
 #Nitrogen_Fixers_Nursing
-class NFN(db.Model):
+class NFN(SearchitMixin, db.Model):
     __searchit__ = ['plant_extra']
     id = db.Column(db.Integer, primary_key=True)
     plant_extra = db.Column(db.String(40))
