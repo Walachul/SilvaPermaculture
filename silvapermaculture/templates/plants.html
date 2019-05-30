@@ -26,10 +26,28 @@
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('searchn') }}">
 
                     <div class="form-group">
-                        {{ searchn.dna(class_="selectpicker", multiple=True) }}
+                              {% if searchn.dna.errors %}
+                                {{ searchn.dna(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in searchn.dna.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ searchn.dna(class_="selectpicker", multiple=True) }}
+                              {% endif %}
                     </div>
                     <div class="form-group">
-                        {{ searchn.nfn(class_="selectpicker", multiple=True) }}
+                              {% if searchn.nfn.errors %}
+                                {{ searchn.nfn(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in searchn.nfn.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                              {{ searchn.nfn(class_="selectpicker", multiple=True) }}
+                              {% endif %}
                     </div>
                     {{ searchn.submit(class="btn float-right my-2", id="login-btn") }}
                 </form>

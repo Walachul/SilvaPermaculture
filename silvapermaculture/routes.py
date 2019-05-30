@@ -229,9 +229,7 @@ def search():
 def searchn():
     searchn = SearchFormN()
     if not searchn.validate():
-        flash('The selected plant has been deleted!', 'warning')
         return redirect(url_for('plants'))
-
     if searchn.dna.data:
         for e in searchn.dna.data:
             filterQuery = Plants.query.join('dna').filter_by(element=str(e)).all()
@@ -239,7 +237,9 @@ def searchn():
         for d in searchn.nfn.data:
             filterQuery = Plants.query.join('nfn').filter_by(plant_extra=str(d)).all()
 
-    return render_template('search_filter.html', title="Filtered search results", searchn=searchn, filterQuery=filterQuery)
+    return render_template('search_filter.html', title="Filtered search results", searchn=searchn,
+                                       filterQuery=filterQuery)
+    
 @app.route("/contact")
 def contact():
     return render_template('contact.html', title= 'Contact')

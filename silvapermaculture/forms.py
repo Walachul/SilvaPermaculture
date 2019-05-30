@@ -108,8 +108,8 @@ class SearchForm(FlaskForm):
 #Filtered Search Form for Dynamic Nutrients Accumulators
 class SearchFormN(FlaskForm):
 
-    dna = QuerySelectMultipleField('Select Element', query_factory=enabled_dna, allow_blank=True, get_label='element')
-    nfn = QuerySelectMultipleField('Select Property', query_factory=enabled_nfn, allow_blank=True,
+    dna = QuerySelectMultipleField('Select Element', validators=[DataRequired()], query_factory=enabled_dna, allow_blank=True, get_label='element')
+    nfn = QuerySelectMultipleField('Select Property', validators=[DataRequired()], query_factory=enabled_nfn, allow_blank=True,
                                    get_label='plant_extra')
     def __init__(self, *args, **kwargs):
         if 'formdata' not in kwargs:
