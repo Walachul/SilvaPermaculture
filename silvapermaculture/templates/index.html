@@ -1,15 +1,18 @@
 {% extends "layout.html" %}
     {% block content %}
+
     <div class="row">
-        <div class="col-12">
-          <h1 class="text-center my-5 pt-5" id="heading">Welcome to SilvaPermaculture !</h1>
-        </div>
-        <div class="col-12 my-2 py-2">
-            <p class="text-center my-5 txt">Here you can explore and find plants
-                that can help and improve the soil in the garden, enrich the life in it and overtime, increased yield.</p>
-            <p class="text-center my-5 txt">If you can help the community
+        <div id="index_bkg_image">
+            <div class="col-12 p-0">
+                <h1 class="text-center my-5 pt-5" id="heading">Welcome to SilvaPermaculture !</h1>
+            </div><!--end of col-12-->
+            <div class="col-12 my-2 py-2 px-0">
+                <p class="text-center my-5 txt px-md-2">Here you can explore and find plants
+                    that can help and improve the soil in the garden, enrich the life in it and overtime, increased yield.</p>
+                <p class="text-center my-5 txt px-md-2">If you can help the community
                 and increase the plant database, feel free to <a href="{{url_for('register') }}" id="registerBtn">register</a> and add a plant.</p>
-        </div>
+            </div><!--end of col-12-->
+        </div><!--end index_bkg_image-->
     </div><!--end of row-->
 
     {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.

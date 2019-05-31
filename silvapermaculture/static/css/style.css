@@ -11,15 +11,13 @@ body{
     font-size: 22px;
     display: flex;
     flex-direction: column;
-    background-image:linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ), url("../img/bkg_pic.jpg");
-    background-repeat: no-repeat;
+
 }
 /**** Header ****/
 /**** Navbar Styling ****/
-
+.bg-black{
+    background-color: black
+}
 .items{
     color:white;
     font-size:22px;
@@ -37,7 +35,19 @@ body{
 /**** Main ****/
 /**** To enable flexible sticky footer. flex:1 fills the content.****/
 main{
-    flex: 1 0 auto;
+    flex: 1 0 auto
+}
+#index_bkg_image{
+    background-image:linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url("../img/bkg_pic.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    height: auto;
+    min-height: 78.2vh;
 
 }
 /**** Register button ****/
@@ -58,8 +68,6 @@ main{
 .txt{
     color: white;
     font-size: 28px;
-
-
 }
 
 /**** Plant Database Page ****/
