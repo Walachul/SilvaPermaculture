@@ -5,7 +5,7 @@ from flask import render_template, url_for, flash, redirect, request, abort
 from silvapermaculture import app, db, bcrypt
 from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateAccountForm,\
     NewPlantForm, UpdatePlantForm, SearchForm, SearchFormN
-from silvapermaculture.models import User, Plants, DNA, NFN
+from silvapermaculture.models import User, Plants
 from flask_login import login_user, current_user, logout_user, login_required
 
 #Routes
@@ -36,7 +36,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next') #query parameter
-            flash('Logged in successfully.', 'success')
+            flash('Logged in successfully!', 'success')
             return redirect(next_page) if next_page else redirect(url_for('index'))#Direct the user to the page he wanted to go when he tried to access it without being logged in, if the next parameter exists.
         else:
             flash('Login unsuccessful. Please check username and password', 'danger')

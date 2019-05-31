@@ -85,8 +85,8 @@ crossorigin="anonymous">
                    {% if messages %}
                         {% for category, message in messages %}
                         <div class="row">
-                            <div class="col-6 my-2 mx-auto">
-                                <div class="text-center alert alert-{{ category }}">
+                            <div class="col-12 mx-auto position-relative">
+                                <div class="text-center position-absolute my-1 alert alert-{{ category }}">
                                   {{ message }}
                                 </div>
                             </div>
