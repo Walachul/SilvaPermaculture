@@ -2,72 +2,94 @@
     {% block content %}
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center" id="heading">Plants Database - Nature's Doctors</h1>
+                <h1 class="text-center my-4" id="headingOther">Plants Database - Nature's Doctors</h1>
             </div>
-        </div>
+        </div><!-- end of row -->
         <div class="row my-3">
             <div class="col-12 mb-2">
-                <p class="text-center">Here we can learn about plants and why we called them Nature's Doctors.<br/>
+                <p class="text-center p-2">Here we can learn about plants and and their properties.<br/>
                     They can help not only humans, but assist the whole environment. <br/>
-                    Search for plants by scientific name, common name or by nutrients. </p>
+                </p>
             </div>
-        </div>
+        </div><!-- end of row -->
         <div class="row">
             <div class="col-12 col-lg-3 ">
-                <h3 class="my-2 text-center">Search for a plant</h3>
+                <h3 class="my-2 text-left">Search for a plant</h3>
                 <!--Search for common name or botanical name-->
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('search')}}">
-                    <div class="form-group">
+                    <div class="form-group row">
+                        <div class="col-12 ">
                     {{ search.q(size=20, class="form-control", placeholder=search.q.label.text) }}
+                         </div>
                     </div>
-                    {{ search.submit(class="btn float-right my-2", id="login-btn") }}
+                    <div class="col-1 m-0 p-0 mb-3 mb-sm-0 mr-lg-3">
+                    {{ search.submit(class="btn btn-search") }}
+                     </div>
                 </form>
                 <!-- Search based on filters-->
+                <h3 class="my-2 text-left">Select elements and search</h3>
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('searchn') }}">
 
-                    <div class="form-group">
-                              {% if searchn.dna.errors %}
-                                {{ searchn.dna(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in searchn.dna.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                              {% else %}
-                              {{ searchn.dna(class_="selectpicker", multiple=True) }}
-                              {% endif %}
-                    </div>
-                    <div class="form-group">
-                              {% if searchn.nfn.errors %}
-                                {{ searchn.nfn(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in searchn.nfn.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                              {% else %}
-                              {{ searchn.nfn(class_="selectpicker", multiple=True) }}
-                              {% endif %}
-                    </div>
-                    {{ searchn.submit(class="btn float-right my-2", id="login-btn") }}
+                        <div class="form-group row">
+                                  {% if searchn.dna.errors %}
+                                    {{ searchn.dna(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in searchn.dna.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                  {% else %}
+                                  <div class="col-12">
+                                  {{ searchn.dna(class_="selectpicker", multiple=True) }}
+                                  </div>
+                                  {% endif %}
+                        </div>
+                        <div class="form-group row">
+                                  {% if searchn.nfn.errors %}
+                                    {{ searchn.nfn(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in searchn.nfn.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                  {% else %}
+                                   <div class="col-12">
+                                  {{ searchn.nfn(class_="selectpicker", multiple=True) }}
+                                   </div>
+                                  {% endif %}
+                        </div>
+                        <div class="col-12 m-0 p-0">
+                        {{ searchn.submit(class="btn btn-search ") }}
+                        </div>
                 </form>
-            </div>
+            </div><!-- end of col-12 -->
+            <!-- Display plants from the database -->
             <div class="col-12 col-lg-9">
-                <h2 class="my-2 text-center heading">Database</h2>
-                {% for plant in plants %}
-                   <div class="my-2 p-2 border border-secondary">
-                    <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
-                    <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
-                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h4>
-                       <p class="text-left small"><em>Plant added by <a href="#">{{ plant.author.username }}</a> on {{ plant.date_added.strftime('%d-%m-%Y') }} </em></p>
-                    <h3>A brief description</h3>
-                    <p class="text-left"> <em>{{ plant.short_description }}</em> </p>
-                    <a class="btn btn-info" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                <div class="row">
+                         {% for plant in plants %}
+
+                        <div class="card shadow-sm mx-2" style="width: 18rem;">
+                          <img class="img-fluid rounded shadow-sm" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
+                          <div class="card-body p-2">
+                            <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
+                            <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
+                            <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                          </div>
+                        </div><!--end of card-->
+                        {% endfor %}
+                </div><!-- end of row-->
+
+                  <!-- <div class="my-3 p-2 border-left border-dark shadow-sm bg-light">
+
+
+
+
+
                    </div>
+                -->
 
-                {% endfor %}
 
-            </div>
-        </div>
+            </div><!-- end of col-12 -->
+        </div><!-- end of row -->
 
     {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.

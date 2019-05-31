@@ -59,9 +59,14 @@ main{
     color:white;
     transform: translateY(5px)
 }
-/**** H1 Styling  ****/
+/**** H1 styling for home page  ****/
 #heading{
     color: white;
+    font-size: 42px;
+}
+/**** H1 style for other pages ****/
+#headingOther{
+    color: black;
     font-size: 42px;
 }
 /**** First page text ****/
@@ -72,11 +77,30 @@ main{
 
 /**** Plant Database Page ****/
 .titles{
+    color: #4B9B2F;
+    font-size:20px
+}
+.btn-readmore, .btn-search{
+    background-color: #4B9B2F;
+    color:white;
+    transition: all .6s
+}
+.btn-readmore:hover, .btn-search:hover{
+    background-color: green;
     color: white;
-    font-size:24px
+    transform: scale(0.9)
+}
+.authorname{
+    color: #E5530B;
+    translate: all .5s
+}
+.authorname:hover{
+    text-decoration: none;
+    color: #4B9B2F;
+    transform: scale(1.1)
 }
 #comment{
-    color: white;
+    color: #4B9B2F;
     font-size:14px;
     font-weight:400
 }
