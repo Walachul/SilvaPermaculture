@@ -13,7 +13,7 @@
             </div>
         </div><!-- end of row -->
         <div class="row">
-            <div class="col-12 col-lg-3 ">
+            <div class="col-12 col-lg-3">
                 <h3 class="my-2 text-left">Search for a plant</h3>
                 <!--Search for common name or botanical name-->
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('search')}}">
@@ -64,11 +64,11 @@
                 </form>
             </div><!-- end of col-12 -->
             <!-- Display plants from the database -->
-            <div class="col-12 col-lg-9">
+            <div class="col-12 col-lg-9 mt-lg-3">
                 <div class="row">
                          {% for plant in plants %}
 
-                        <div class="card shadow-sm mx-2" style="width: 18rem;">
+                        <div class="card shadow-sm my-2 my-lg-0 mx-lg-2 mb-lg-2 mx-auto" style="width: 18rem;">
                           <img class="img-fluid rounded shadow-sm" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
                           <div class="card-body p-2">
                             <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
