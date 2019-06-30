@@ -1,18 +1,13 @@
 {% extends "layout.html" %}
     {% block content %}
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center" id="heading">{{ header }}</h1>
-            </div>
-        </div>
         <div class="row my-3">
-            <div class="col-12 mb-2">
-                <p class="text-center">Info to help the user add a plant to the db</p>
+            <div class="col-12">
+                <h1 class="text-center my-4 py-2" id="headingOther">Edit plant </h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-6 mx-auto my-5" id="login">
-                    <img class="img-fluid my-2" src="{{ image_file }}"  alt="Default plant image"/>
+            <div class="col-12 col-lg-6 mx-auto my-3" id="login">
+                    <img class="img-fluid my-2 py-4 mx-auto d-block" src="{{ image_file }}"  alt="Default plant image"/>
                     <form id="registration" class="my-4" method="POST" action="" enctype="multipart/form-data">
                         {{ form.hidden_tag() }} <!-- CSRF token -->
                           <div class="form-group">
@@ -116,7 +111,7 @@
                                {{ form.nfn(class="selectpicker", multiple=True)}}
                            </div>
 
-                              {{ form.submit(class="btn float-right my-2", id="login-btn") }}
+                              {{ form.submit(class="btn float-right my-2", id="update-btn") }}
                     </form>
             </div>
         </div>

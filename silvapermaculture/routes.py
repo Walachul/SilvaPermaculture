@@ -191,7 +191,7 @@ def update_plant(plant_id):
 
     image_file = url_for('static', filename='img/plants/' + plant.image_file)
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
-                           form=form, header ="Update a plant" , return_to_page=back_to_plant)
+                           form=form, return_to_page=back_to_plant)
 
 #Delete a plant with a specific ID
 @app.route("/plants/<int:plant_id>/delete", methods=['POST'])
