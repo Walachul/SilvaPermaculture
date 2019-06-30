@@ -2,44 +2,42 @@
     {% block content %}
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center">Common name: <span class="titles">{{ plant.common_name }}</span><br/>
+                <h1 class="my-4 py-2 text-center small">Common name: <span class="titles">{{ plant.common_name }}</span><br/>
                 Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h1>
             </div>
-        </div>
+        </div><!--end of row-->
         <div class="row">
-            <div class="col-12 col-lg-9">
-                <h5 class="my-2 text-left">Plant added by <a href="#">{{ plant.author.username }}</a>
-                    on {{ plant.date_added.strftime('%d-%m-%Y') }}</h5>
-            </div>
             {% if plant.author == current_user  %}
-            <div class="col-12 col-lg-3">
+            <div class="col-12">
+                <div class="float-right">
                 <a class="btn btn-secondary" href="{{ url_for('update_plant', plant_id=plant.id) }}">Edit</a>
                 <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                </div>
             </div>
             {% endif %}
-        </div>
+        </div><!--end of row-->
         <div class="row">
             <div class="col-12">
-                <div class="my-2 p-2 border border-secondary">
-                    <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
-                    <h3 class="mt-2">A brief description</h3>
-                    <p class="text-left"><em>{{ plant.short_description }}</em> </p>
-                    <h3>Medicinal Use</h3>
-                    <p class="text-left">{{ plant.medicinal }}</p>
-                    <h3>Habitats</h3>
-                    <p class="text-left">{{ plant.habitats }}</p>
-                    <h3>Other uses</h3>
-                    <p class="text-left">{{ plant.other_uses }}</p>
-                    <h3>Region</h3>
-                    <p class="text-left">{{ plant.region }}</p>
-                    <h3>Dynamic Nutrients Accumulated</h3>
-                    <p class="text-left">
+                <div class="my-2 p-2">
+                    <img class="img-fluid rounded my-3 d-block mx-auto" id="plantShadow" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
+                    <h3 class="my-3 infoPlantHeadings">A brief description</h3>
+                    <p class="text-justify p-3">{{ plant.short_description }}</p>
+                    <h3 class="my-3 infoPlantHeadings">Medicinal Use</h3>
+                    <p class="text-justify p-3">{{ plant.medicinal }}</p>
+                    <h3 class="my-3 infoPlantHeadings">Habitats</h3>
+                    <p class="text-justify p-3">{{ plant.habitats }}</p>
+                    <h3 class="my-3 infoPlantHeadings">Other uses</h3>
+                    <p class="text-justify p-3">{{ plant.other_uses }}</p>
+                    <h3 class="my-3 infoPlantHeadings">Region</h3>
+                    <p class="text-justify p-3">{{ plant.region }}</p>
+                    <h3 class="my-3 infoPlantHeadings">Dynamic Nutrients Accumulated</h3>
+                    <p class="text-justify p-3">
                         {% for element in plant.dna %}
                         {{ element }}
                         {% endfor %}
                     </p>
-                    <h3>Nurse plant / Nitrogen Fixator</h3>
-                    <p class="text-left">
+                    <h3 class="my-3 infoPlantHeadings">Nurse plant / Nitrogen Fixator</h3>
+                    <p class="text-justify p-3">
                         {% for extra in plant.nfn %}
                         {{ extra }}
                         {% endfor %}
@@ -48,7 +46,7 @@
                 </div>
 
             </div>
-        </div>
+        </div><!--end of row-->
         <!-- Modal for deleting plant-->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">

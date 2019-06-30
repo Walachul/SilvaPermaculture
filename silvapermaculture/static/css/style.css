@@ -78,7 +78,7 @@ main{
 /**** Plant Database Page ****/
 .titles{
     color: #4B9B2F;
-    font-size:20px
+    font-size:26px
 }
 .btn-readmore, .btn-search{
     background-color: #4B9B2F;
@@ -104,7 +104,27 @@ main{
     font-size:14px;
     font-weight:400
 }
+/**** Show single Plant page ****/
+#plantShadow{
+    -webkit-box-shadow: 10px 9px 11px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 9px 11px 2px rgba(0,0,0,0.75);
+    box-shadow: 10px 9px 11px 2px rgba(0,0,0,0.75);
+}
+.infoPlantHeadings{
+    font-size: 26px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: black
+}
+.infoPlantHeadings::after{
+    content: "";
+    display: block;
+    border: 1px solid black;
+    height: 25px;
+    float: left;
+    margin: 5px;
 
+}
 /**** Registration Page ****/
 #register, #login{
     background: linear-gradient(to right, rgba(9,194,0,0.7), rgba(125,168,0,0.5))
