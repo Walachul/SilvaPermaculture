@@ -8,7 +8,7 @@ html, body{
 }
 body{
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
 
@@ -78,7 +78,8 @@ main{
 /**** Plant Database Page ****/
 .titles{
     color: #4B9B2F;
-    font-size:26px
+    font-size:26px;
+    font-weight: bold
 }
 .btn-readmore, .btn-search{
     background-color: #4B9B2F;
@@ -111,19 +112,78 @@ main{
     box-shadow: 10px 9px 11px 2px rgba(0,0,0,0.75);
 }
 .infoPlantHeadings{
-    font-size: 26px;
+    font-size: 20px;
     letter-spacing: 1px;
     font-weight: bold;
     color: black
 }
-.infoPlantHeadings::after{
-    content: "";
+/** Collapse box : show some text and rest can be shown with read more for Medicinal Use section**/
+#collapseMedicinal{
+    width:100%
+}
+#collapseMedicinal a.collapsed:after {
+    content: "... Read more"
+}
+#collapseMedicinal a:not(.collapsed):after{
+    content: "Show less"
+}
+#collapseMedicinal #collapseM.collapse:not(.show){
     display: block;
-    border: 1px solid black;
-    height: 25px;
-    float: left;
-    margin: 5px;
+    height: 4.2em ;
+    overflow: hidden
+}
+#collapseMedicinal #collapseM.collapsing{
+    height: 7.5em;
+}
+/** Collapse box : show some text and rest can be shown with read more for Habitats section**/
+#collapseHabitats{
+    width:100%
+}
+#collapseHabitats a.collapsed:after {
+    content: "... Read more"
+}
+#collapseHabitats a:not(.collapsed):after{
+    content: "Show less"
+}
+#collapseHabitats #collapseH.collapse:not(.show){
+    display: block;
+    height: 4.2em ;
+    overflow: hidden
+}
+#collapseHabitats #collapseH.collapsing{
+    height: 7.5em;
+}
+/** How many columns to be displayed in different widths **/
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
 
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
 }
 /**** Registration Page ****/
 #register, #login{

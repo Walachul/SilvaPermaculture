@@ -1,14 +1,9 @@
 {% extends "layout.html" %}
     {% block content %}
-        <div class="row">
-            <div class="col-12">
-                <h1 class="my-4 py-2 text-center small">Common name: <span class="titles">{{ plant.common_name }}</span><br/>
-                Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h1>
-            </div>
-        </div><!--end of row-->
-        <div class="row">
+         <!-- Edit and Delete functions available for plant's author -->
+         <div class="row">
             {% if plant.author == current_user  %}
-            <div class="col-12">
+            <div class="col-12 my-2">
                 <div class="float-right">
                 <a class="btn btn-secondary" href="{{ url_for('update_plant', plant_id=plant.id) }}">Edit</a>
                 <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
@@ -16,32 +11,173 @@
             </div>
             {% endif %}
         </div><!--end of row-->
-        <div class="row">
+        <div class="row"><!--Masonry-->
             <div class="col-12">
-                <div class="my-2 p-2">
-                    <img class="img-fluid rounded my-3 d-block mx-auto" id="plantShadow" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
-                    <h3 class="my-3 infoPlantHeadings">A brief description</h3>
-                    <p class="text-justify p-3">{{ plant.short_description }}</p>
-                    <h3 class="my-3 infoPlantHeadings">Medicinal Use</h3>
-                    <p class="text-justify p-3">{{ plant.medicinal }}</p>
-                    <h3 class="my-3 infoPlantHeadings">Habitats</h3>
-                    <p class="text-justify p-3">{{ plant.habitats }}</p>
-                    <h3 class="my-3 infoPlantHeadings">Other uses</h3>
-                    <p class="text-justify p-3">{{ plant.other_uses }}</p>
-                    <h3 class="my-3 infoPlantHeadings">Region</h3>
-                    <p class="text-justify p-3">{{ plant.region }}</p>
-                    <h3 class="my-3 infoPlantHeadings">Dynamic Nutrients Accumulated</h3>
-                    <p class="text-justify p-3">
+                <div class="card-columns">
+           <div class="card shadow text-center">
+            <div class="card-body">
+              <h1 class="my-2 py-2 text-center small">Common name: <span class="titles">{{ plant.common_name }}</span><br/>
+                Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h1>
+              <img class="img-fluid rounded my-3 d-block mx-auto" id="plantShadow" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
+            </div>
+          </div>
+          <div class="card shadow text-center">
+            <div class="card-body">
+              <h3 class="my-3 infoPlantHeadings"><i class="fas fa-pencil-alt"></i> A brief description </h3>
+              <p class="text-justify p-3">{{ plant.short_description|truncate(100, true, "...") }}</p>
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-readmore" data-toggle="modal" data-target="#briefDescription">
+                      Read more
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="briefDescription" tabindex="-1" role="dialog" aria-labelledby="briefDescriptionTitle" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="briefDescriptionTitle">A brief description</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="text-justify">{{ plant.short_description }}</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--end of modal-->
+            </div>
+          </div>
+          <div class="card shadow text-center">
+                <div class="card-body">
+                    <h3 class="my-3 infoPlantHeadings"><i class="fas fa-mortar-pestle"></i> Medicinal Use</h3>
+                    <p class="text-justify p-3">{{ plant.medicinal|truncate(100, true, "...") }}</p>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-readmore" data-toggle="modal" data-target="#Medicinal">
+                      Read more
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="Medicinal" tabindex="-1" role="dialog" aria-labelledby="MedicinalTitle" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="MedicinalTitle">Medicinal Use</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="text-justify">{{ plant.medicinal }}</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--end of modal-->
+                </div>
+          </div>
+          <div class="card shadow text-center">
+            <div class="card-body">
+              <h3 class="my-3 infoPlantHeadings"><i class="fas fa-plus"></i> Other uses</h3>
+              <p class="text-justify p-3">{{ plant.other_uses|truncate(100, true, "...") }}</p>
+              <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-readmore" data-toggle="modal" data-target="#otherUses">
+                      Read more
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="otherUses" tabindex="-1" role="dialog" aria-labelledby="otherUsesTitle" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="otherUsesTitle">Other Uses</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="text-justify">{{ plant.other_uses }}</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--end of modal-->
+            </div>
+          </div>
+          <div class="card shadow text-center">
+            <div class="card-body">
+              <h3 class="my-3 infoPlantHeadings"><i class="fas fa-sun"></i> Habitats</h3>
+              <p class="text-justify p-3">{{ plant.habitats|truncate(100, true, "...") }}</p>
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-readmore" data-toggle="modal" data-target="#Habitats">
+                      Read more
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="Habitats" tabindex="-1" role="dialog" aria-labelledby="HabitatsTitle" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="HabitatsTitle">Habitats</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="text-justify">{{ plant.habitats }}</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--end of modal-->
+            </div>
+          </div>
+          <div class="card text-center">
+            <h3 class="my-3 infoPlantHeadings"><i class="fas fa-globe"></i> Region</h3>
+             <p class="text-justify p-3">{{ plant.region }}</p>
+          </div>
+          <div class="card shadow text-center">
+            <div class="card-body">
+              <h3 class="my-1 infoPlantHeadings"><i class="fas fa-atom"></i> Dynamic Nutrients Accumulated</h3>
+                    <p class="text-center p-1">
                         {% for element in plant.dna %}
                         {{ element }}
                         {% endfor %}
                     </p>
-                    <h3 class="my-3 infoPlantHeadings">Nurse plant / Nitrogen Fixator</h3>
-                    <p class="text-justify p-3">
+              <h3 class="my-1 infoPlantHeadings"><i class="fas fa-hands"></i> Nurse plant / Nitrogen Fixator</h3>
+                    <p class="text-center p-1">
                         {% for extra in plant.nfn %}
                         {{ extra }}
                         {% endfor %}
                     </p>
+            </div>
+          </div>
+        </div>
+            </div>
+        </div><!--end of Masonry-->
+        <div class="row">
+            <div class="col-12">
+                <div class="my-2 p-2">
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 </div>
 
