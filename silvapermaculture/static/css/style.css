@@ -117,41 +117,10 @@ main{
     font-weight: bold;
     color: black
 }
-/** Collapse box : show some text and rest can be shown with read more for Medicinal Use section**/
-#collapseMedicinal{
-    width:100%
-}
-#collapseMedicinal a.collapsed:after {
-    content: "... Read more"
-}
-#collapseMedicinal a:not(.collapsed):after{
-    content: "Show less"
-}
-#collapseMedicinal #collapseM.collapse:not(.show){
-    display: block;
-    height: 4.2em ;
-    overflow: hidden
-}
-#collapseMedicinal #collapseM.collapsing{
-    height: 7.5em;
-}
-/** Collapse box : show some text and rest can be shown with read more for Habitats section**/
-#collapseHabitats{
-    width:100%
-}
-#collapseHabitats a.collapsed:after {
-    content: "... Read more"
-}
-#collapseHabitats a:not(.collapsed):after{
-    content: "Show less"
-}
-#collapseHabitats #collapseH.collapse:not(.show){
-    display: block;
-    height: 4.2em ;
-    overflow: hidden
-}
-#collapseHabitats #collapseH.collapsing{
-    height: 7.5em;
+/** Style text in modals **/
+.plantInfo{
+    font-size: 20px;
+    line-height: 36px;
 }
 /** How many columns to be displayed in different widths **/
 @media (min-width: 34em) {
