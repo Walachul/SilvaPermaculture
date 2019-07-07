@@ -180,7 +180,7 @@ I wanted the functionality to edit a plant or remove it from the database to be 
         UNIQUE (plants_id, nfn_id), FOREIGN KEY(plants_id) REFERENCES plants (id), 
    
    
-#####Example of a plant model
+##### Example of a plant model
 
     ````
     >>> from silvapermaculture import *
@@ -208,14 +208,14 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     'Symphytum officinale'
     >>>exit()
 
-##Testing
+## Testing
 
-#####1.Routes testing
+##### 1.Routes testing
 
     i. Testing the routes links from menu(home, plants, statistics, add plant, account).
     ii. Going to different routes from the current page(for example from plants to account).
 
-#####2.Database  
+##### 2.Database  
 
     i. Tested in terminal the User model and trying to access them.
          
@@ -243,7 +243,7 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     
     iii. Adding and testing in terminal the Dynamic Nutrients Accumulator and Nurse/Nitrogen Fixator plant models.
     
-#####3. Register form
+##### 3. Register form
     
     i. Go to "Register" page from the menu or go from the link "register" from the home page.
     ii. Try to submit the empty register form and verify that an error message from Flask forms appears with the required input.
@@ -251,7 +251,7 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     iv. Try to submit the register form with the same username as one already existing in the database and verify that a relevant warning message prompts the user to choose another one.
     v. Try to submit the register form with all inputs valid and verify that a successful registered message appears.
    
-#####3. Login form
+##### 4. Login form
 
     i. Go to "Login" page from the menu.
     ii. Try to submit the empty login form and verify that an error message from Flask forms appears with the required input.
