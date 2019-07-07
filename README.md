@@ -208,5 +208,53 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     'Symphytum officinale'
     >>>exit()
 
+##Testing
 
+#####1.Routes testing
+
+    i. Testing the routes links from menu(home, plants, statistics, add plant, account).
+    ii. Going to different routes from the current page(for example from plants to account).
+
+#####2.Database  
+
+    i. Tested in terminal the User model and trying to access them.
+         
+            >>>from silvapermaculture import db
+            >>>db.create_all()
+            >>>from silvapermaculture import User
+            >>>user_1 = User(username="John Doe", password="Password")
+            >>>db.session.add(user_1)
+            >>>db.session.commit()
+            >>>find_user = User.query.first()
+            User('John Doe', 'b09c46c970d0c348.jpg')
+            >>>exit()
+            
+    ii. Testing in terminal the Plants models and accessing them
+            
+            >>>from silvapermaculture import db
+            >>>from silvapermaculture import *
+            >>>plant_1 = Plants(common_name="Test 1", botanical_name="Test 1 Latin", short_description="Lorem ipsum", medicinal_use="LoremLoremIpsum", other_uses="Second lorem", habitats="Testiing", region="Europe", user_id=1)
+            >>>db.session.add(plant_1)
+            >>>db.session.commit()
+            >>>find_plant = Plants.query.first()
+            >>>find_plant
+            [Plants('Test 1', 'Test 1 Latin', 'Lorem ipsum', 'LoremLoremIpsum', 'Second lorem', 'Testiing', 'Europe')]
+            >>>exit()
     
+    iii. Adding and testing in terminal the Dynamic Nutrients Accumulator and Nurse/Nitrogen Fixator plant models.
+    
+#####3. Register form
+    
+    i. Go to "Register" page from the menu or go from the link "register" from the home page.
+    ii. Try to submit the empty register form and verify that an error message from Flask forms appears with the required input.
+    iii. Try to submit the register form with different passwords and verify that a relevant warning message appears.
+    iv. Try to submit the register form with the same username as one already existing in the database and verify that a relevant warning message prompts the user to choose another one.
+    v. Try to submit the register form with all inputs valid and verify that a successful registered message appears.
+   
+#####3. Login form
+
+    i. Go to "Login" page from the menu.
+    ii. Try to submit the empty login form and verify that an error message from Flask forms appears with the required input.
+    iii. Try to submit the login form only with the user name and verify that a relevant warning message appears.
+    iv.  Try to submit the login form only with the password and verify that a relevant warning message appears.
+    v. Try to submit the login form with all inputs valid and verify that a successful logged in message appears that redirects to the home page.
