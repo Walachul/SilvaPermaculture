@@ -258,3 +258,53 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     iii. Try to submit the login form only with the user name and verify that a relevant warning message appears.
     iv.  Try to submit the login form only with the password and verify that a relevant warning message appears.
     v. Try to submit the login form with all inputs valid and verify that a successful logged in message appears that redirects to the home page.
+    
+##### 5. Add a new plant form
+    
+    i. Go to "Login" page and login with credentials.
+    ii. Go to "Add a plant" page.
+    iii. Try to submit the empty form and verify that an error message from Flask forms appears with the required input.
+    iv.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    v.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    vi. Try to submit the form only with two valid of the required inputs(the first 4) and verify that a relevant warning message appears.
+    vii. Try to submit the form only with three valid of the required inputs(the first 4) and verify that a relevant warning message appears.
+    viii. Try to submit the form with the required inputs valid, but with the botanical name input already existing in the database and verify that a relevant warning message appears.
+    ix. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.
+    x. Try to submit the new plant form with all inputs valid and verify that a successful added plant message appears and redirects the user to the Plants page.
+    
+##### 6. Edit a plant form
+    
+    i. Go to "Login" page and login with credentials.
+    ii. Go to Plants and select a plant that you added.
+    iii. Click "Edit" button and verify that it access the "Edit" page.
+    iv. If no update is required, click the button "No update? Go back to plant" and verify that it navigates to the plant wanted to be edited.
+    v. Try to submit the empty form and verify that an error message from Flask forms appears with the required input.
+    vi.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    vii.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    viii. Try to submit the form only with two valid of the required inputs(the first 4) and verify that a relevant warning message appears.
+    ix. Try to submit the form only with three valid of the required inputs(the first 4) and verify that a relevant warning message appears.
+    x. Try to submit the form with the required inputs valid, but with the botanical name input already existing in the database and verify that a relevant warning message appears.
+    xi. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.
+    xii. x. Try to submit the edit plant form with all inputs valid and changed from previous ones and verify that a successful update plant message appears and redirects the user to that particular plant page.
+    
+##### 7. Delete a plant
+
+    i. Go to "Login" page and login with credentials.
+    ii. Go to Plants and select a plant that you added.
+    iii. Click "Delete" button and verify that a modal with a warning message pops up.
+    iv. Click "Close" button and verify that the modal dissapears if I don't want to delete the plant.
+    v. Click "Delete" button and verify that a successful message appears and user is redirected back to the Plants page.
+    
+##### 8. Search form
+
+    i. Go to "Plants" page.
+    ii. Type in the search form an already existing plant from the database and verify that it redirects to the results page and displays the plant found.
+    iii. Type in the search form an inexistent plant and verify that it returns a 404 page.
+    iv. Type in the search form a medical condition (ex. arthritis) and verify it returns the result page with the matching plant(s).
+    v.  Type in the search form a medical condition that is not present in any plant in the site's database and verify it returns a 404 page.
+    
+##### 9. Filtered search form
+
+    i. Go to "Plants" page.
+    ii. Click the search button without selected items for filtering search and verify that a warning message appears.
+    iii. Select only nutrients and verify that a warning message appears 
