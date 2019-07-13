@@ -22,7 +22,7 @@
                     <li class="font-weight-bold">{{ d }}</li>
                 {% endfor %}
                 </ul>
-                <p>Total results {{ total }} </p>
+                <p>Total results {{ filterQuery | length }} </p>
                 {% for plant in filterQuery %}
 
                    <div class="my-2 p-2 border border-secondary">
