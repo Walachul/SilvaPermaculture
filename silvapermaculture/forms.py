@@ -94,7 +94,7 @@ class UpdatePlantForm(FlaskForm):
 
     # Check to see if botanical name exists
     def validate_botanical_name(self, botanical_name):
-        if botanical_name.data != botanical_name:
+        if not botanical_name.data == botanical_name:
             botanical_name = Plants.query.filter_by(botanical_name=botanical_name.data).first()
             if botanical_name:
                 raise ValidationError('That botanical name is taken. Please choose another one.')
