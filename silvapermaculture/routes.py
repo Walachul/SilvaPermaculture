@@ -136,7 +136,7 @@ def new_plant():
         return redirect(url_for('plants'))
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('new_plant.html', title='Add new plant',
-                           image_file=image_file, form=form, header="Add a new plant")
+                           image_file=image_file, form=form)
 
 #Go to specific plant with a specific ID for more information
 @app.route("/plants/<int:plant_id>")

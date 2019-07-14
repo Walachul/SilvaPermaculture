@@ -2,18 +2,13 @@
     {% block content %}
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center" id="heading">{{ header }}</h1>
-            </div>
-        </div>
-        <div class="row my-3">
-            <div class="col-12 mb-2">
-                <p class="text-center">Info to help the user add a plant to the db</p>
+                <h1 class="text-center my-4 py-2" id="headingOther">Add a new plant to the database</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-6 mx-auto my-5" id="login">
+            <div class="col-9 col-md-6 col-lg-6 mx-auto my-5" id="login">
                     <div class="text-center my-3 ">
-                         <img class="img-fluid rounded shadow" src="{{ image_file }}"  alt="Default plant image"/>
+                         <img class="img-fluid my-2 py-4 mx-auto d-block" src="{{ image_file }}"  alt="Default plant image"/>
                     </div>
 
                     <form id="registration" class="my-4" method="POST" action="" enctype="multipart/form-data">
