@@ -42,9 +42,6 @@ crossorigin="anonymous">
                                     <li class="nav-item mx-1">
                                         <a class="nav-link items" href="{{ url_for('statistics') }}">Statistics</a>
                                     </li>
-                                    <li class="nav-item mx-1">
-                                        <a class="nav-link items" href="{{ url_for('about') }}">About</a>
-                                    </li>
                                     {% if current_user.is_authenticated %}
                                          <li class="nav-item mx-1">
                                             <a class="nav-link items"  href="{{ url_for('new_plant') }}">Add Plant</a>
@@ -64,9 +61,6 @@ crossorigin="anonymous">
                                             <a class="nav-link items" href="{{ url_for('register') }}">Register</a>
                                         </li>
                                     {% endif %}
-                                    <li class="nav-item mx-1">
-                                        <a class="nav-link items"  href="{{ url_for('contact') }}">Contact</a>
-                                    </li>
                                 </ul>
                             </div>
                         </nav>

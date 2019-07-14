@@ -23,9 +23,7 @@ def plants():
 @app.route("/statistics")
 def statistics():
     return render_template('statistics.html', title= 'Statistics')
-@app.route("/about")
-def about():
-    return render_template('about.html', title= 'About')
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -239,7 +237,3 @@ def searchn():
 
     return render_template('search_filter.html', title="Filtered search results", searchn=searchn,
                                        filterQuery=filterQuery)
-    
-@app.route("/contact")
-def contact():
-    return render_template('contact.html', title= 'Contact')
