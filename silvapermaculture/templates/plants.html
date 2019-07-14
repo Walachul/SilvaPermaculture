@@ -68,27 +68,16 @@
                 <div class="row">
                          {% for plant in plants %}
 
-                        <div class="card shadow-sm my-2 my-lg-0 mx-lg-2 mb-lg-2 mx-auto" style="width: 18rem;">
-                          <img class="img-fluid rounded shadow-sm" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
-                          <div class="card-body p-2">
-                            <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
-                            <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
-                            <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
-                          </div>
+                        <div class="card shadow-sm my-2 my-lg-0 mx-lg-2 mb-lg-2" style="width: 18rem;">
+                            <img class="img-fluid rounded shadow-sm" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
+                              <div class="card-body p-2">
+                                <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
+                                <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
+                                <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                              </div>
                         </div><!--end of card-->
                         {% endfor %}
                 </div><!-- end of row-->
-
-                  <!-- <div class="my-3 p-2 border-left border-dark shadow-sm bg-light">
-
-
-
-
-
-                   </div>
-                -->
-
-
             </div><!-- end of col-12 -->
         </div><!-- end of row -->
 

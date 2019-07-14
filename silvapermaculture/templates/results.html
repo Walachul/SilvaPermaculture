@@ -2,54 +2,44 @@
     {% block content %}
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center" id="heading">Search results</h1>
+                <h1 class="text-center my-4 py-2" id="headingOther">Search results : <strong>{{ total }}</strong></h1>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-lg-9">
+        </div><!-- end of row -->
+       <div class="row">
+            <div class="col-12">
+                <div class="row">
                     {% for plant in plants %}
-                    <span>Search results : <strong>{{ total }}</strong></span>
-                   <div class="my-2 p-2 border border-secondary">
-                    <img class="img-fluid rounded " src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
-                    <h4 class="text-left">Common name: <span class="titles">{{ plant.common_name }}</span></h4>
-                    <h4 class="text-left">Scientific name: <span class="titles">{{ plant.botanical_name }} </span></h4>
-                    <p class="text-left small">Plant added by <a href="#">{{ plant.author.username }}</a> on {{ plant.date_added.strftime('%d-%m-%Y') }} </p>
-                    <p class="text-left">A brief description: <em>{{ plant.short_description }}</em> </p>
-                    <p class="text-left">Medicinal Use:{{ plant.medicinal }}</p>
-                    <p class="text-left">Nutrients accumulated:</p>
-                       <ul>
-                    {% for dnaElement in plant.dna %}
-                    <li>{{ dnaElement }}</li>
+                   <div class="card shadow-sm my-3 mx-auto mx-md-3" style="width: 18rem;">
+                          <img class="img-fluid rounded shadow-sm" src="{{ url_for('static', filename='img/plants/' + plant.image_file) }}"  alt="Default plant image"/>
+                          <div class="card-body p-2">
+                            <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
+                            <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
+                            <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                          </div>
+                   </div><!--end of card-->
                     {% endfor %}
-                        </ul>
-                    <p class="text-left">Nurse plant / Nitrogen Fixator:</p>
-                    <ul>
-                    {% for nfnElement in plant.nfn %}
-                    <li>{{ nfnElement }}</li>
-                    {% endfor %}
-                     </ul>
-                   </div>
-
-
-                {% endfor %}
-            <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span>
-                    {{ ('Previous results') }}
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    {{ ('Next results') }}
-                    <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+                  </div>
             </div>
-        </div>
+       </div>
+        <div class="row">
+            <div class="col-12">
+                        <nav aria-label="...">
+                    <ul class="pager">
+                        <li class="previous{% if not prev_url %} disabled{% endif %}">
+                            <a href="{{ prev_url or '#' }}">
+                                <span aria-hidden="true">&larr;</span>
+                                {{ ('Previous results') }}
+                            </a>
+                        </li>
+                        <li class="next{% if not next_url %} disabled{% endif %}">
+                            <a href="{{ next_url or '#' }}">
+                                {{ ('Next results') }}
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div><!--end of row-->
 
     {% endblock content %}

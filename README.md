@@ -307,4 +307,7 @@ I wanted the functionality to edit a plant or remove it from the database to be 
 
     i. Go to "Plants" page.
     ii. Click the search button without selected items for filtering search and verify that a warning message appears.
-    iii. Select only nutrients and verify that a warning message appears 
+    iii. Select only specific nutrients and verify returned results.
+    
+    
+     

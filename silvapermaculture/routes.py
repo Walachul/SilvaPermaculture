@@ -228,6 +228,7 @@ def search():
 @app.route("/searchn")
 def searchn():
     searchn = SearchFormN()
+    original_botanical_name = searchn.botanical_name
     if not searchn.validate():
         return redirect(url_for('plants'))
     if searchn.dna.data:

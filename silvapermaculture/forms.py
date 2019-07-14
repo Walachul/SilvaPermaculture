@@ -92,11 +92,13 @@ class UpdatePlantForm(FlaskForm):
     nfn = QuerySelectMultipleField('Select Property',query_factory=enabled_nfn,allow_blank=True, get_label='plant_extra')
     submit = SubmitField('Update')
 
+
+
     # Check to see if botanical name exists
     def validate_botanical_name(self, botanical_name):
-        if not botanical_name.data == botanical_name:
+        if not botanical_name.data != botanical_name:
             botanical_name = Plants.query.filter_by(botanical_name=botanical_name.data).first()
-            if botanical_name:
+            if botanical_name :
                 raise ValidationError('That botanical name is taken. Please choose another one.')
 
 class SearchForm(FlaskForm):
