@@ -78,7 +78,26 @@
                         </div><!--end of card-->
                         {% endfor %}
                 </div><!-- end of row-->
+                <!-- Pagination -->
+                <div class="row">
+                    <div class="col-12">
+                        {% for page_num in plants.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                                {% if page_num %}
+                                    <!-- style the current active page -->
+                                    {% if plants.page == page_num %}
+                                     <a class="btn btn-info mt-4" href="{{ url_for('plants', page=page_num) }}">{{ page_num }}</a>
+                                    {% else %}
+                                    <a class="btn btn-outline-info mt-4" href="{{ url_for('plants', page=page_num) }}">{{ page_num }}</a>
+                                    {% endif %}
+                                    <!-- end of current active page-->
+                                {% else %}
+                                ...
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                </div><!--end of pagination -->
             </div><!-- end of col-12 -->
+
         </div><!-- end of row -->
 
     {% endblock content %} #Jinja2 allows to put the name of the block here so to know which block is closing if we have multiple.
