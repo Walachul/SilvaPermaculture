@@ -16,7 +16,7 @@ def index():
 @app.route("/plants")
 def plants():
     page = request.args.get('page', 1, type=int)
-    plants = Plants.query.paginate(page=page, per_page=2)
+    plants = Plants.query.order_by(Plants.date_added.desc()).paginate(page=page, per_page=5)
     search = SearchForm()
     searchn = SearchFormN()
 
