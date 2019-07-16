@@ -15,7 +15,8 @@ def index():
     return render_template('index.html')
 @app.route("/plants")
 def plants():
-    plants = Plants.query.all()
+    page = request.args.get('page', 1, type=int)
+    plants = Plants.query.paginate(page=page, per_page=6)
     search = SearchForm()
     searchn = SearchFormN()
 
