@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FileField, FileAllowed, BooleanField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from flask_login import current_user
 from silvapermaculture.models import User

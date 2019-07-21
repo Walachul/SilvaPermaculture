@@ -19,7 +19,7 @@ def login():
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next') #query parameter
             flash('Logged in successfully!', 'success')
-            return redirect(next_page) if next_page else redirect(url_for('index'))#Direct the user to the page he wanted to go when he tried to access it without being logged in, if the next parameter exists.
+            return redirect(next_page) if next_page else redirect(url_for('main.index'))#Direct the user to the page he wanted to go when he tried to access it without being logged in, if the next parameter exists.
         else:
             flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title= 'Login', form=form)
@@ -35,13 +35,13 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash(f'Successfully created account! You can now login.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('users.login'))
     return render_template('register.html', title= 'Register', form=form)
 
 @users.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -56,7 +56,7 @@ def account():
         current_user.username = form.username.data
         db.session.commit()
         flash(f'Your account has been updated!', 'success')
-        return redirect(url_for('account')) #User is redirected here so in order to avoid POST-GET redirect pattern. Browser sends GET req, not POST
+        return redirect(url_for('users.account')) #User is redirected here so in order to avoid POST-GET redirect pattern. Browser sends GET req, not POST
     elif request.method == 'GET':
         form.username.data = current_user.username
     image_file = url_for('static', filename='img/profile_user/' + current_user.image_file)

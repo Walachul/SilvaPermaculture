@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint
 from flask_login import current_user,login_required
 from silvapermaculture import  db
-from silvapermaculture.models import  import Plants, DNA, NFN
+from silvapermaculture.models import Plants
 from silvapermaculture.plants.forms import NewPlantForm, UpdatePlantForm, SearchForm, SearchFormN
+from silvapermaculture.plants.utilities import save_plant_picture
 
 
 plants = Blueprint('plants', __name__)
@@ -31,7 +32,7 @@ def new_plant():
         db.session.add(new_plant)
         db.session.commit()
         flash(f'Thank you ! You have successfully added a plant to the database!', 'success')
-        return redirect(url_for('plants'))
+        return redirect(url_for('main.plants'))
     image_file = url_for('static', filename='img/plants/default_plant_pic.jpg')
     return render_template('new_plant.html', title='Add new plant',
                            image_file=image_file, form=form)
@@ -70,7 +71,7 @@ def update_plant(plant_id):
         db.session.commit()
         flash(f'You have successfully updated the plant !', 'success')
 
-        return redirect(url_for('plant', plant_id=plant.id))
+        return redirect(url_for('plants.plant', plant_id=plant.id))
     elif request.method == 'GET':
         #Form is filled with the current data for a plant
         form.common_name.data = plant.common_name
@@ -83,7 +84,7 @@ def update_plant(plant_id):
         form.dna.data = plant.dna
         form.nfn.data = plant.nfn
     #User can go back to the plant he wanted to update, without the action of updating.
-    back_to_plant = url_for('plant', plant_id=plant.id)
+    back_to_plant = url_for('plants.plant', plant_id=plant.id)
 
     image_file = url_for('static', filename='img/plants/' + plant.image_file)
     return render_template('update_plant.html', title='Update plant', image_file=image_file,
@@ -100,7 +101,7 @@ def delete_plant(plant_id):
     db.session.delete(plant)
     db.session.commit()
     flash('The selected plant has been deleted!', 'success')
-    return redirect(url_for('plants'))
+    return redirect(url_for('plants.plants'))
 
 #Implementing Search
 @plants.route("/search")
@@ -108,13 +109,13 @@ def search():
     search = SearchForm()
     #Doesn't check the data, just if the fields are empty raises an error
     if not search.validate():
-        return redirect(url_for('plants'))
+        return redirect(url_for('plants.plants'))
     page = request.args.get('page', 1, type=int)
     plants, total = Plants.search(search.q.data, page,
                                   app.config['PLANTS_PER_PAGE'])
-    next_url = url_for('search', q=search.q.data, page=page + 1) \
+    next_url = url_for('plants.search', q=search.q.data, page=page + 1) \
         if total > page * app.config['PLANTS_PER_PAGE'] else None
-    prev_url = url_for('search', q=search.q.data, page=page - 1) \
+    prev_url = url_for('plants.search', q=search.q.data, page=page - 1) \
         if page > 1 else None
 
     return render_template('results.html', title="Search results", search=search,
@@ -125,7 +126,7 @@ def search():
 def searchn():
     searchn = SearchFormN()
     if not searchn.validate():
-        return redirect(url_for('plants'))
+        return redirect(url_for('plants.plants'))
     if searchn.dna.data:
         for e in searchn.dna.data:
             filterQuery = Plants.query.join('dna').filter_by(element=str(e)).all()
