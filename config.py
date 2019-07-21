@@ -7,3 +7,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     PLANTS_PER_PAGE = 5
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
