@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn run.py
+web: flask db upgrade; gunicorn run:silvapermaculture
