@@ -1,4 +1,8 @@
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, FileField, FileAllowed, BooleanField
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
+from flask_login import current_user
+from silvapermaculture.models import User
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username', render_kw={"placeholder": "Username"},

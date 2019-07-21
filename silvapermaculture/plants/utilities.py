@@ -1,3 +1,6 @@
+import os
+import secrets
+from PIL import Image
 
 
 #Function for updating default plant, scale it and use hex
