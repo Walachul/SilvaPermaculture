@@ -96,3 +96,37 @@ def delete_plant(plant_id):
     db.session.commit()
     flash('The selected plant has been deleted!', 'success')
     return redirect(url_for('plants'))
+
+#Implementing Search
+@plants.route("/search")
+def search():
+    search = SearchForm()
+    #Doesn't check the data, just if the fields are empty raises an error
+    if not search.validate():
+        return redirect(url_for('plants'))
+    page = request.args.get('page', 1, type=int)
+    plants, total = Plants.search(search.q.data, page,
+                                  app.config['PLANTS_PER_PAGE'])
+    next_url = url_for('search', q=search.q.data, page=page + 1) \
+        if total > page * app.config['PLANTS_PER_PAGE'] else None
+    prev_url = url_for('search', q=search.q.data, page=page - 1) \
+        if page > 1 else None
+
+    return render_template('results.html', title="Search results", search=search,
+                           total=total, plants=plants, next_url=next_url, prev_url=prev_url)
+
+#Search based on filters
+@plants.route("/searchn")
+def searchn():
+    searchn = SearchFormN()
+    if not searchn.validate():
+        return redirect(url_for('plants'))
+    if searchn.dna.data:
+        for e in searchn.dna.data:
+            filterQuery = Plants.query.join('dna').filter_by(element=str(e)).all()
+    elif searchn.nfn.data:
+        for d in searchn.nfn.data:
+            filterQuery = Plants.query.join('nfn').filter_by(plant_extra=str(d)).all()
+
+    return render_template('search_filter.html', title="Filtered search results", searchn=searchn,
+                                       filterQuery=filterQuery)
