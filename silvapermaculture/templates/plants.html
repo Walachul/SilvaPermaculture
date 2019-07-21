@@ -16,7 +16,7 @@
             <div class="col-12 col-lg-3">
                 <h3 class="my-2 text-left">Search for a plant</h3>
                 <!--Search for common name or botanical name-->
-                <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('search')}}">
+                <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('plants.search')}}">
                     <div class="form-group row">
                         <div class="col-12 ">
                     {{ search.q(size=20, class="form-control", placeholder=search.q.label.text) }}
@@ -28,7 +28,7 @@
                 </form>
                 <!-- Search based on filters-->
                 <h3 class="my-2 text-left">Select elements and search</h3>
-                <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('searchn') }}">
+                <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('plants.searchn') }}">
 
                         <div class="form-group row">
                                   {% if searchn.dna.errors %}
@@ -73,7 +73,7 @@
                               <div class="card-body p-2">
                                 <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
                                 <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
-                                <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                                <a class="btn btn-readmore p-2" href="{{ url_for('plants.plant', plant_id=plant.id) }}">READ MORE</a>
                               </div>
                         </div><!--end of card-->
                         {% endfor %}
@@ -85,9 +85,9 @@
                                 {% if page_num %}
                                     <!-- style the current active page -->
                                     {% if plants.page == page_num %}
-                                     <a class="btn btn-info mt-4" href="{{ url_for('plants', page=page_num) }}">{{ page_num }}</a>
+                                     <a class="btn btn-info mt-4" href="{{ url_for('plants.plants', page=page_num) }}">{{ page_num }}</a>
                                     {% else %}
-                                    <a class="btn btn-outline-info mt-4" href="{{ url_for('plants', page=page_num) }}">{{ page_num }}</a>
+                                    <a class="btn btn-outline-info mt-4" href="{{ url_for('plants.plants', page=page_num) }}">{{ page_num }}</a>
                                     {% endif %}
                                     <!-- end of current active page-->
                                 {% else %}

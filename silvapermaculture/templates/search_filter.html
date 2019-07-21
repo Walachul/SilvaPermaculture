@@ -35,7 +35,7 @@
                           <div class="card-body p-2">
                             <h4 class="text-left">Common name:<br/> <span class="titles">{{ plant.common_name }}</span></h4>
                             <h4 class="text-left">Scientific name:<br/> <span class="titles">{{ plant.botanical_name }} </span></h4>
-                            <a class="btn btn-readmore p-2" href="{{ url_for('plant', plant_id=plant.id) }}">READ MORE</a>
+                            <a class="btn btn-readmore p-2" href="{{ url_for('plants.plant', plant_id=plant.id) }}">READ MORE</a>
                           </div>
                    </div><!--end of card-->
                     {% endfor %}
