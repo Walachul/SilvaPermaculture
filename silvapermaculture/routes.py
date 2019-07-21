@@ -8,22 +8,7 @@ from silvapermaculture.forms import UserRegistrationForm, UserLoginForm, UpdateA
 from silvapermaculture.models import User, Plants
 from flask_login import login_user, current_user, logout_user, login_required
 
-#Routes
-@app.route("/")
-@app.route("/index")
-def index():
-    return render_template('index.html')
-@app.route("/plants")
-def plants():
-    page = request.args.get('page', 1, type=int)
-    plants = Plants.query.order_by(Plants.date_added.desc()).paginate(page=page, per_page=5)
-    search = SearchForm()
-    searchn = SearchFormN()
 
-    return render_template('plants.html', title= 'Plants Database', plants=plants, search=search, searchn=searchn)
-@app.route("/statistics")
-def statistics():
-    return render_template('statistics.html', title= 'Statistics')
 
 
 
