@@ -27,8 +27,10 @@ def create_app(config_class=Config):
     from silvapermaculture.users.routes import users  # This is imported here to avoid circular imports.
     from silvapermaculture.plants.routes import plants  # This is imported here to avoid circular imports.
     from silvapermaculture.main.routes import main  # This is imported here to avoid circular imports.
+    from silvapermaculture.errors.handlers import errors
     app.register_blueprint(users)
     app.register_blueprint(plants)
     app.register_blueprint(main)
+    app.register_blueprint(errors)
 
     return app

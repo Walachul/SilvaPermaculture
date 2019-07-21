@@ -4,6 +4,7 @@ from silvapermaculture import  db
 from silvapermaculture.models import Plants
 from silvapermaculture.plants.forms import NewPlantForm, UpdatePlantForm, SearchForm, SearchFormN
 from silvapermaculture.plants.utilities import save_plant_picture
+from flask import current_app
 
 
 plants = Blueprint('plants', __name__)
@@ -101,7 +102,7 @@ def delete_plant(plant_id):
     db.session.delete(plant)
     db.session.commit()
     flash('The selected plant has been deleted!', 'success')
-    return redirect(url_for('plants.plants'))
+    return redirect(url_for('main.plants'))
 
 #Implementing Search
 @plants.route("/search")
@@ -112,9 +113,9 @@ def search():
         return redirect(url_for('plants.plants'))
     page = request.args.get('page', 1, type=int)
     plants, total = Plants.search(search.q.data, page,
-                                  app.config['PLANTS_PER_PAGE'])
+                                  current_app.config['PLANTS_PER_PAGE'])
     next_url = url_for('plants.search', q=search.q.data, page=page + 1) \
-        if total > page * app.config['PLANTS_PER_PAGE'] else None
+        if total > page * current_app.config['PLANTS_PER_PAGE'] else None
     prev_url = url_for('plants.search', q=search.q.data, page=page - 1) \
         if page > 1 else None
 
