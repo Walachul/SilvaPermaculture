@@ -21,24 +21,20 @@
                   </div>
             </div>
        </div>
-        <div class="row">
+       <div class="row">
             <div class="col-12">
-                        <nav aria-label="...">
-                    <ul class="pager">
-                        <li class="previous{% if not prev_url %} disabled{% endif %}">
-                            <a href="{{ prev_url or '#' }}">
+                        <a class="previous{% if not prev_url %} disabled{% endif %}">
+                            <a class="btn btn-outline-success mt-4" href="{{ prev_url or '#' }}">
                                 <span aria-hidden="true">&larr;</span>
                                 {{ ('Previous results') }}
                             </a>
-                        </li>
-                        <li class="next{% if not next_url %} disabled{% endif %}">
-                            <a href="{{ next_url or '#' }}">
+                        </a>
+                        <a class="next{% if not next_url %} disabled{% endif %}">
+                            <a class="btn btn-outline-success mt-4" href="{{ next_url or '#' }}">
                                 {{ ('Next results') }}
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
-                        </li>
-                    </ul>
-                </nav>
+                        </a>
             </div>
         </div><!--end of row-->
 
