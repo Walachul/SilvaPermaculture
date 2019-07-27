@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default = 'default.png')
+    image_file = db.Column(db.String(100), nullable=False, default = 'default.png')
     add_plants = db.relationship('Plants', backref = 'author', lazy=True)
 
     def __repr__(self):  #How is the objected printed when we print it out. Dunder/Magic method.
@@ -91,7 +91,7 @@ class Plants(SearchitMixin, db.Model):
     other_uses = db.Column(db.Text, nullable=False)
     habitats = db.Column(db.Text, nullable=False)
     region = db.Column(db.Text, nullable=False)
-    image_file = db.Column(db.String(20), default='default_plant_pic.jpg')
+    image_file = db.Column(db.String(100), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     dna = db.relationship('DNA', secondary = plants_dna_table)  # Dynamic_Nutrient_Accumulated
