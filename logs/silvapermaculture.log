@@ -8,3 +8,70 @@
 2019-07-23 20:59:09,334 INFO: Silvapermaculture startup [in D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\__init__.py:55]
 2019-07-23 20:59:11,962 INFO: Silvapermaculture startup [in D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\__init__.py:55]
 2019-07-25 22:36:01,648 INFO: Silvapermaculture startup [in D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\__init__.py:55]
+2019-07-27 15:25:37,635 INFO: Silvapermaculture startup [in D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\__init__.py:55]
+2019-07-27 15:26:10,146 ERROR: Exception on /search [GET] [in D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py:1761]
+Traceback (most recent call last):
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 384, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 2, in raise_from
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 380, in _make_request
+    httplib_response = conn.getresponse()
+  File "c:\users\walachul\appdata\local\programs\python\python36-32\Lib\http\client.py", line 1331, in getresponse
+    response.begin()
+  File "c:\users\walachul\appdata\local\programs\python\python36-32\Lib\http\client.py", line 297, in begin
+    version, status, reason = self._read_status()
+  File "c:\users\walachul\appdata\local\programs\python\python36-32\Lib\http\client.py", line 258, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "c:\users\walachul\appdata\local\programs\python\python36-32\Lib\socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 172, in perform_request
+    response = self.pool.urlopen(method, url, body, retries=Retry(False), headers=request_headers, **kw)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\util\retry.py", line 343, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\packages\six.py", line 686, in reraise
+    raise value
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\urllib3\connectionpool.py", line 306, in _raise_timeout
+    raise ReadTimeoutError(self, url, "Read timed out. (read timeout=%s)" % timeout_value)
+urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=9200): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\plants\routes.py", line 116, in search
+    current_app.config['PLANTS_PER_PAGE'])
+  File "D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\models.py", line 45, in search
+    ids, total = search_index(cls.__tablename__, expression, page, per_page)
+  File "D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\search.py", line 29, in search_index
+    'from':(page -1)*per_page, 'size':per_page})
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\client\utils.py", line 76, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\client\__init__.py", line 660, in search
+    doc_type, '_search'), params=params, body=body)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\transport.py", line 318, in perform_request
+    status, headers_response, data = connection.perform_request(method, url, params, body, headers=headers, ignore=ignore, timeout=timeout)
+  File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 180, in perform_request
+    raise ConnectionTimeout('TIMEOUT', str(e), e)
+elasticsearch.exceptions.ConnectionTimeout: ConnectionTimeout caused by - ReadTimeoutError(HTTPConnectionPool(host='localhost', port=9200): Read timed out. (read timeout=10))

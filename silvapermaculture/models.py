@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from silvapermaculture.search import add_element_index, remove_element_from_index, search_index
 
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
