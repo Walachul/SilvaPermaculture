@@ -55,3 +55,6 @@ def create_app(config_class=Config):
     app.logger.info('Silvapermaculture startup')
 
     return app
+
+with app.app_context():
+    db.create_all()
