@@ -75,3 +75,4 @@ Traceback (most recent call last):
   File "D:\PythonProjects\Flask\Environments\Nature'sDoctors\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 180, in perform_request
     raise ConnectionTimeout('TIMEOUT', str(e), e)
 elasticsearch.exceptions.ConnectionTimeout: ConnectionTimeout caused by - ReadTimeoutError(HTTPConnectionPool(host='localhost', port=9200): Read timed out. (read timeout=10))
+2019-07-27 17:33:09,906 INFO: Silvapermaculture startup [in D:\PythonProjects\Flask\Nature'sDoctors\silvapermaculture\__init__.py:55]
