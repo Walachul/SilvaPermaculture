@@ -26,13 +26,13 @@ class User(db.Model, UserMixin):
 plants_dna_table = db.Table(
     'plants_dna',
     db.Column('plants_id', db.Integer, db.ForeignKey('plants.id'), nullable=False),
-    db.Column('dna_id', db.Integer, db.ForeignKey('DNA.id'), nullable=False),
+    db.Column('dna_id', db.Integer, db.ForeignKey('dna.id'), nullable=False),
     db.UniqueConstraint('plants_id', 'dna_id')
 )
 plants_nfn_table = db.Table(
     'plants_nfn',
     db.Column('plants_id', db.Integer, db.ForeignKey('plants.id'), nullable=False),
-    db.Column('nfn_id', db.Integer, db.ForeignKey('NFN.id'), nullable=False),
+    db.Column('nfn_id', db.Integer, db.ForeignKey('nfn.id'), nullable=False),
     db.UniqueConstraint('plants_id', 'nfn_id')
 )
 
@@ -94,15 +94,15 @@ class Plants(SearchitMixin, db.Model):
     image_file = db.Column(db.String(100), default='default_plant_pic.jpg')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    dna = db.relationship('DNA', secondary = plants_dna_table)  # Dynamic_Nutrient_Accumulated
-    nfn = db.relationship('NFN', secondary = plants_nfn_table)  # Nitrogen_Fixers_Nursing
+    dna = db.relationship('Dna', secondary = plants_dna_table)  # Dynamic_Nutrient_Accumulated
+    nfn = db.relationship('Nfn', secondary = plants_nfn_table)  # Nitrogen_Fixers_Nursing
 
     def __repr__(self):
         return f"Plants('{self.common_name}', '{self.botanical_name}', '{self.short_description}'," \
             f" '{self.medicinal}', '{self.dna}', '{self.nfn}' )"
 
 #Dynamic_Nutrient_Accumulated
-class DNA(SearchitMixin, db.Model):
+class Dna(SearchitMixin, db.Model):
     __searchit__ = ['element']
     id = db.Column(db.Integer, primary_key=True)
     element = db.Column(db.String(15))
@@ -110,7 +110,7 @@ class DNA(SearchitMixin, db.Model):
     def __repr__(self):
         return '{}'.format(self.element)
 #Nitrogen_Fixers_Nursing
-class NFN(SearchitMixin, db.Model):
+class Nfn(SearchitMixin, db.Model):
     __searchit__ = ['plant_extra']
     id = db.Column(db.Integer, primary_key=True)
     plant_extra = db.Column(db.String(40))

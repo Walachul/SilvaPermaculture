@@ -4,16 +4,16 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.ext.sqlalchemy.fields import  QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, ValidationError
-from silvapermaculture.models import Plants,DNA,NFN
+from silvapermaculture.models import Plants,Dna,Nfn
 
 
 
 #Query for Dynamic Nutrient Accumulator Model for QuerySelectMultipleField
 def enabled_dna():
-    return DNA.query
+    return Dna.query
 #Query for Nitrogen Fixers Nursing Model for QuerySelectMultipleField
 def enabled_nfn():
-    return NFN.query
+    return Nfn.query
 
 class NewPlantForm(FlaskForm):
     common_name = StringField('Common Name', render_kw={"placeholder": "Common name"},
