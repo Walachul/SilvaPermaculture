@@ -1,4 +1,5 @@
 from silvapermaculture import create_app, db
+from silvapermaculture.models import DNA, NFN
 app = create_app()
 
 #context to run outside the application
