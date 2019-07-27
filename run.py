@@ -22,6 +22,7 @@ plant_extra1 = NFN(plant_extra="Nurse plant")
 plant_extra2 = NFN(plant_extra="Nitrogen Fixator")
 db.session.add_all([element1,element2,element3,element4,element5,element6,
                     element7,element8,element9,element10,element11,element12, plant_extra1, plant_extra2])
+db.session.commit()
 
 ctx.pop()
 
