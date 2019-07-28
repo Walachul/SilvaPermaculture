@@ -102,16 +102,16 @@ class Plants(SearchitMixin, db.Model):
             f" '{self.medicinal}', '{self.dna}', '{self.nfn}' )"
 
 #Dynamic_Nutrient_Accumulated
-class Dna(db.Model):
-   # __searchit__ = ['element']
+class Dna(SearchitMixin, db.Model):
+    __searchit__ = ['element']
     id = db.Column(db.Integer, primary_key=True)
     element = db.Column(db.String(15))
 
     def __repr__(self):
         return '{}'.format(self.element)
 #Nitrogen_Fixers_Nursing
-class Nfn(db.Model):
-   # __searchit__ = ['plant_extra']
+class Nfn(SearchitMixin, db.Model):
+    __searchit__ = ['plant_extra']
     id = db.Column(db.Integer, primary_key=True)
     plant_extra = db.Column(db.String(40))
 

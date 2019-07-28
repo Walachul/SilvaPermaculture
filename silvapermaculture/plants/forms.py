@@ -87,10 +87,11 @@ class SearchFormN(FlaskForm):
     dna = QuerySelectMultipleField('Select Element', validators=[DataRequired()], query_factory=enabled_dna, allow_blank=True, get_label='element')
     nfn = QuerySelectMultipleField('Select Property', validators=[DataRequired()], query_factory=enabled_nfn, allow_blank=True,
                                    get_label='plant_extra')
-    #def __init__(self, *args, **kwargs):
-     #   if 'formdata' not in kwargs:
-        #    kwargs['formdata'] = request.args
-       # if 'csrf_enabled' not in kwargs:
-        #    kwargs['csrf_enabled'] = False
-        #super(SearchFormN, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        #The formdata arg determines from where Flask forms gets submissions.
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'csrf_enabled' not in kwargs:
+            kwargs['csrf_enabled'] = False
+        super(SearchFormN, self).__init__(*args, **kwargs)
     submit = SubmitField('Search')
