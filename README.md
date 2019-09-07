@@ -78,11 +78,9 @@ I wanted the functionality to edit a plant or remove it from the database to be 
 
 3. Security check - If feature 1 is implemented, this will allow to check for the validity of the email address, by sending to that registered email address a confirmation link.
 
-4. Pagination - Feature to display 5 items on a page and the functionality to look for the next ones.
+4. Plants cards can show the user that added that plant and when exactly.
 
-5. Plants cards can show the user that added that plant and when exactly.
-
-6. Order the plants by date added or nutrients
+5. Order the plants by date added or nutrients
 
 ## Technologies Used
 
@@ -109,6 +107,10 @@ I wanted the functionality to edit a plant or remove it from the database to be 
 
     SQLAlchemy was used to for its object-relational mapping together with SQLite for creating the tables(objects)
     into a more Pythonic way, to represent the User, Plants, Nutrients and the relationship between them.
+    SQLite was used for development.
+*[Heroku PostgreSQL](https://www.heroku.com/postgres)
+    Switched from file based SQLite to production database PostgreSQL to also avoid heroku erasing the SQLite file db.
+
     
 * [Elasticsearch](https://www.elastic.co/)
 
@@ -212,8 +214,8 @@ I wanted the functionality to edit a plant or remove it from the database to be 
 
 ##### 1.Routes testing
 
-    i. Testing the routes links from menu(home, plants, statistics, add plant, account).
-    ii. Going to different routes from the current page(for example from plants to account).
+    i. Testing the routes links from menu(home, plants, add plant, account).
+    ii. Accessing  different routes from the current page(for example from plants to account) and verify that it access the desired route.
 
 ##### 2.Database  
 
@@ -268,9 +270,8 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     v.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
     vi. Try to submit the form only with two valid of the required inputs(the first 4) and verify that a relevant warning message appears.
     vii. Try to submit the form only with three valid of the required inputs(the first 4) and verify that a relevant warning message appears.
-    viii. Try to submit the form with the required inputs valid, but with the botanical name input already existing in the database and verify that a relevant warning message appears.
-    ix. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.
-    x. Try to submit the new plant form with all inputs valid and verify that a successful added plant message appears and redirects the user to the Plants page.
+    viii. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.(Applicaton only allows extensions jpg and png)
+    ix. Try to submit the new plant form with all inputs valid and verify that a successful added plant message appears and redirects the user to the Plants page.
     
 ##### 6. Edit a plant form
     
@@ -279,13 +280,12 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     iii. Click "Edit" button and verify that it access the "Edit" page.
     iv. If no update is required, click the button "No update? Go back to plant" and verify that it navigates to the plant wanted to be edited.
     v. Try to submit the empty form and verify that an error message from Flask forms appears with the required input.
-    vi.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
-    vii.  Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    vi.Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
+    vii.Try to submit the form only with one valid of the required inputs (the first 4) and verify that a relevant warning message appears.
     viii. Try to submit the form only with two valid of the required inputs(the first 4) and verify that a relevant warning message appears.
     ix. Try to submit the form only with three valid of the required inputs(the first 4) and verify that a relevant warning message appears.
-    x. Try to submit the form with the required inputs valid, but with the botanical name input already existing in the database and verify that a relevant warning message appears.
-    xi. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.
-    xii. x. Try to submit the edit plant form with all inputs valid and changed from previous ones and verify that a successful update plant message appears and redirects the user to that particular plant page.
+    x. Try to submit the form with all the required inputs valid and with a .txt file upload for the plant's image and verify that a relevant warning message appears.(Applicaton only allows extensions jpg and png)
+    xi.Try to submit the edit plant form with all inputs valid and changed from previous ones and verify that a successful update plant message appears and redirects the user to that particular plant page.
     
 ##### 7. Delete a plant
 
@@ -308,6 +308,114 @@ I wanted the functionality to edit a plant or remove it from the database to be 
     i. Go to "Plants" page.
     ii. Click the search button without selected items for filtering search and verify that a warning message appears.
     iii. Select only specific nutrients and verify returned results.
+
+##### 10. Account page
+
+    i. Test to access account route without being logged-in and verify that it redirects to login page and a warning appears.
+    ii. Login and go to account page.
+    iii. Type in a username that already exists in the DB and verify that a warning message appears.
+    iv. Type a different username and verify that a success message appears. 
+    v. Upload a different profile pic with other extension than allowed jpg, png and verify that a warning message appears.
+    vi. Upload a different profile pic and verify that a success message appears.  
+    vii. Go to "Logout" and verify that it redirects to home page and user is logged-out.
+
+##### 11. Responsivness
+
+    All the templates and elements of the app were tested for mobile-first approach.
+
+## Installation
+
+
+__Local installation__
+
+    i. First clone the project:
+        https://github.com/Walachul/SilvaPermaculture.git
+
+    ii. To start developing the project:
+        Make sure you have Python 3.6.
+
+        Create a virtual environment in Windows:
+            Navigate to where the project folder is and run:
+            python -m venv venv 
+        Activate the venv:
+            Navigate to venv and inside run:
+            C:\Python\Example\venv>Scripts\activate
+        If successfuly, you should see the name of the virtual environment in curly braces in the front of the path:
+        (venv) C:\Python\Example\venv>
+        To install packages:
+        Navigate to the home folder:
+        (venv) C:\Python\Example> pip install requirements.txt
+
+ **Please note that app requires the setup of environment variables.**
+
+To setup of the following variables in Windows environment variables can be done like this:
+
+        Navigate: Control Panel > System > Advanced system settings > Environment Variables > 
+        add new > SECRET_KEY; DATABASE_URL ; ELASTICSEARCH_URL
+        To get a SECRET_KEY number:
+        Example: in CMD in python interpreter:
+            >>>import secrets
+            >>>secrets.token_hex(16)
+            '84b8fec8da83b405db0ea64be18823d3'
+            >>>exit()
+
+Install elasticsearch and to see it running go to http://localhost:9200.
+
+        And in Environment variables :
+        ELASTICSEARCH_URL=http://localhost:9200
+
+To start the app:
+     (venv) C:\Python\Example> python run.py
+
+## Deployment to Heroku
+[Install Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+
+###### Commands
+
+    (venv) C:\Python\Example>heroku login //for log in to Heroku
+    (venv) C:\Python\Example> heroku apps:create example-app // need of unique app name
+
+__To add Heroku Hobby-dev PostgreSQL to the project__:
+
+    (venv) C:\Python\Example> heroku addons:add heroku-postgresql:hobby-dev
+
+OR you can add this addon by going to
+
+     heroku dashboard of your app > resources tab and searching for Heroku Postgres
+
+__Add addon elasticsearch__
+
+    heroku addons:create searchbox:starter
+
+    However, this addon will be available if you add your credit card. You are not billed.
+
+__Set ELASTICSEARCH_URL env variable in Heroku:
+
+    To set the env variable ELASTICSEARCH_URL from SEARCHBOX_URl:
+
+    (venv) C:\Python\Example>heroku config:get SEARCHBOX_URL
+    <this_is_going_to_be_the_url_for_elasticsearch_url>
+    copy it
+    (venv) C:\Python\Example>heroku config:set ELASTICSEARCH_URL=<this_is_going_to_be_the_url_for_elasticsearch_url>
+
+__You can view/edit config vars from the Settings window of the app.__
+
+__If you cannot use the elasticsearch functionality or get wierd errors after implementation__
     
-    
-     
+    1. Go to Resources Tab of the app and open SearchBox ElasticSearch.
+    2. In the new window of dashboard.searchly.com, go to Dashboard menu and access indices.
+    3. Create a new Index for the app.
+    4. This will initialize the elasticsearch and will create the new indices for your database and tables.
+
+__Procfile__
+
+    web: flask db upgrade; gunicorn run:app
+
+__Final steps for deployment__
+
+    git commit -a -m "deployment to heroku changes"
+    git push heroku master
+
+__If you encounter errors and the app is not running__
+
+    Hit the More button near the Open app > access view logs
