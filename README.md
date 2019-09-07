@@ -409,7 +409,7 @@ __If you cannot use the elasticsearch functionality or get wierd errors after im
 
 __Procfile__
 
-    web: flask db upgrade; gunicorn run:app
+    web: gunicorn run:app
 
 __Final steps for deployment__
 
@@ -419,3 +419,30 @@ __Final steps for deployment__
 __If you encounter errors and the app is not running__
 
     Hit the More button near the Open app > access view logs
+** Resources
+
+    *   [Google](https://www.google.com)
+    *   [Youtube](https://www.youtube.com)
+    *   [Stack Overflow](https://stackoverflow.com/)
+    *   [Flask Docs](https://flask.palletsprojects.com/en/1.0.x/)
+    *   [Flask Forms](http://exploreflask.com/en/latest/forms.html)
+    *   [Flask WTF](https://flask-wtf.readthedocs.io/en/stable/)
+    *   [SQLAlchemy](https://www.sqlalchemy.org/)
+    *   [SQLite](https://sqlite.org/index.html)
+    
+
+## Credits
+
+Credit is due to the following names. I would like to thank each and every one who has helped or contributed to my project in any way. Please see list of names below:
+
+    *   Code Institute for introducing me to Python and Flask framework.
+    *   Niel McEwen for pointing out that I need to create many to many relationship for the plants and nutrients.
+    *   Mentor Aaron Sinnott
+    *   Youtuber Pretty Printed
+    *   Youtuber Corey Schafer
+    *   Creator of Flask Mega Tutorial and implementation of Elasticsearch functionality for my project Miguel Grinberg
+
+## LICENSE
+This project is released under the MIT license.
+[License](https://raw.githubusercontent.com/Walachul/SilvaPermaculture/master/LICENSE)
+
