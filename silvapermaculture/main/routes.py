@@ -17,7 +17,3 @@ def plants():
     searchn = SearchFormN()
 
     return render_template('plants.html', title='Plants Database', plants=plants, search=search, searchn=searchn)
-
-@main.route("/statistics")
-def statistics():
-    return render_template('statistics.html', title='Statistics')
