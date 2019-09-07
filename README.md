@@ -352,19 +352,29 @@ To setup of the following variables in Windows environment variables can be done
 
         Navigate: Control Panel > System > Advanced system settings > Environment Variables > 
         add new > SECRET_KEY; DATABASE_URL ; ELASTICSEARCH_URL
-        To get a SECRET_KEY number:
+
+To get a SECRET_KEY number:
+
         Example: in CMD in python interpreter:
             >>>import secrets
             >>>secrets.token_hex(16)
             '84b8fec8da83b405db0ea64be18823d3'
             >>>exit()
+Setup DATABASE_URL as environment variable:
+    
+    SQLite
+    'sqlite:///example.db'
+
 
 Install elasticsearch and to see it running go to http://localhost:9200.
 
         And in Environment variables :
         ELASTICSEARCH_URL=http://localhost:9200
 
+Please remember to restart Windows so that the new environment variables created are pulled by the app.
+
 To start the app:
+
      (venv) C:\Python\Example> python run.py
 
 ## Deployment to Heroku
@@ -419,28 +429,40 @@ __Final steps for deployment__
 __If you encounter errors and the app is not running__
 
     Hit the More button near the Open app > access view logs
-** Resources
+## Resources
 
-    *   [Google](https://www.google.com)
-    *   [Youtube](https://www.youtube.com)
-    *   [Stack Overflow](https://stackoverflow.com/)
-    *   [Flask Docs](https://flask.palletsprojects.com/en/1.0.x/)
-    *   [Flask Forms](http://exploreflask.com/en/latest/forms.html)
-    *   [Flask WTF](https://flask-wtf.readthedocs.io/en/stable/)
-    *   [SQLAlchemy](https://www.sqlalchemy.org/)
-    *   [SQLite](https://sqlite.org/index.html)
+*   [Google](https://www.google.com)
+*   [Youtube](https://www.youtube.com)
+*   [Stack Overflow](https://stackoverflow.com/)
+*   [Flask Docs](https://flask.palletsprojects.com/en/1.0.x/)
+*   [Flask Forms](http://exploreflask.com/en/latest/forms.html)
+*   [Flask WTF](https://flask-wtf.readthedocs.io/en/stable/)
+*   [SQLAlchemy](https://www.sqlalchemy.org/)
+*   [SQLite](https://sqlite.org/index.html)
+
+
     
+## Content
+
+Inspiration for creating the app was from the book __Gaia's Garden: A guide to Home-Scale Permaculture @Second Edition by Toby Hemenway__
+
+Various content for the plants was obtained from multiple sites.(ex. Wikipedia)
+
+##### Media
+
+All the images were obtained using Google's Images search results and I use them only for educational purposes only.
 
 ## Credits
 
 Credit is due to the following names. I would like to thank each and every one who has helped or contributed to my project in any way. Please see list of names below:
 
-    *   Code Institute for introducing me to Python and Flask framework.
-    *   Niel McEwen for pointing out that I need to create many to many relationship for the plants and nutrients.
-    *   Mentor Aaron Sinnott
-    *   Youtuber Pretty Printed
-    *   Youtuber Corey Schafer
-    *   Creator of Flask Mega Tutorial and implementation of Elasticsearch functionality for my project Miguel Grinberg
+*   Code Institute for introducing me to Python and Flask framework.
+*   Niel McEwen for pointing out that I need to create many to many relationship for the plants and nutrients.
+*   Mentor Aaron Sinnott
+*   Youtuber Pretty Printed
+*   Youtuber Corey Schafer
+*   Creator of Flask Mega Tutorial and implementation of Elasticsearch functionality for my project Miguel Grinberg
+    
 
 ## LICENSE
 This project is released under the MIT license.
