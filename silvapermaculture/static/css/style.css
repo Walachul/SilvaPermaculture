@@ -78,8 +78,7 @@ main{
 /**** Plant Database Page ****/
 .titles{
     color: #4B9B2F;
-    font-size:26px;
-    font-weight: bold
+    font-size:22px;
 }
 .btn-readmore, .btn-search{
     background-color: #4B9B2F;
