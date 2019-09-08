@@ -452,6 +452,15 @@ Various content for the plants was obtained from multiple sites.(ex. Wikipedia)
 ##### Media
 
 All the images were obtained using Google's Images search results and I use them only for educational purposes only.
+__Heroku Ephemeral System__
+Due to the nature of Heroku Ephemeral System, the images are deleted after the dynos restart and I didn't find a way so far to connect Flask with Amazon S3. 
+For the uploading of a new image for the plants, please use [imgbb.com](https://imgbb.com/).
+After uploading is complete, select from embed codes > HTML FUll linked and copy the image source to the file upload on the app.
+
+The app only accepts jpg and png extensions.
+
+    Example
+    <a href="https://ibb.co/ZzmzxG0"><img src="https://i.ibb.co/CK2KQmf/dandelion.jpg" alt="dandelion" border="0"></a>
 
 ## Credits
 
@@ -463,7 +472,7 @@ Credit is due to the following names. I would like to thank each and every one w
 *   Youtuber Pretty Printed
 *   Youtuber Corey Schafer
 *   Creator of Flask Mega Tutorial and implementation of Elasticsearch functionality for my project Miguel Grinberg
-    
+*   Code Institute student  @Anna_G for sharing information regarding where to host the images [imgbb.com](https://imgbb.com/).
 
 ## LICENSE
 This project is released under the MIT license.
