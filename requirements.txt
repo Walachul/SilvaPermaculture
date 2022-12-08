@@ -1,7 +1,7 @@
 alembic==1.0.9
 bcrypt==3.1.6
 blinker==1.4
-certifi==2019.6.16
+certifi==2022.12.7
 cffi==1.12.2
 Click==7.0
 elasticsearch==6.3.1
